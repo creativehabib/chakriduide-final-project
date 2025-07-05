@@ -48,11 +48,12 @@ export function transformEmployeeToFormData(employee: EmployeeType): {
     };
 }
 export function getImageUrl(path?: string | null, width = 300, height = 200, text = 'No Image') {
+    const baseUrl = window.location.origin;
     if (!path) {
         return `https://placehold.co/${width}x${height}?text=${encodeURIComponent(text)}`;
     }
 
-    return `/storage/${path}`;
+    return `${baseUrl}/storage/${path}`;
 }
 
 export function transformFormDataToUserData( user: UserType): UserFormData {

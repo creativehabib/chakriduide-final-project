@@ -230,7 +230,7 @@
 }
 
 /* --------------------
-   Tiptap Editor Styles (Laravel + React + Inertia Starter Kit)
+   Tiptop Editor Styles (Laravel + React + Inertia Starter Kit)
    Tailwind-based Typography with Light/Dark Mode
 --------------------- */
 
@@ -243,15 +243,15 @@
 }
 
 /* Headings */
-.tiptap h1 {@apply text-4xl font-bold leading-tight;}
-.tiptap h2 {@apply text-3xl font-bold leading-tight;}
-.tiptap h3 {@apply text-2xl font-bold leading-tight;}
-.tiptap h4 {@apply text-xl font-bold leading-tight;}
-.tiptap h5 {@apply text-lg font-bold leading-tight;}
-.tiptap h6 {@apply text-base font-bold leading-tight;}
+h1, .tiptap h1 {@apply text-4xl font-bold leading-tight;}
+h2, .tiptap h2 {@apply text-3xl font-bold leading-tight;}
+h3, .tiptap h3 {@apply text-2xl font-bold leading-tight;}
+h4, .tiptap h4 {@apply text-xl font-bold leading-tight;}
+h5, .tiptap h5 {@apply text-lg font-bold leading-tight;}
+h6, .tiptap h6 {@apply text-base font-bold leading-tight;}
 
 /* Paragraph */
-.tiptap p {@apply leading-relaxed;}
+p, .tiptap p {@apply leading-relaxed;}
 
 /* Lists */
 .tiptap ol {
@@ -263,20 +263,20 @@
 .tiptap li > p {@apply mb-2;}
 
 /* Blockquote */
-.tiptap blockquote {
+blockquote, .tiptap blockquote {
     @apply border-l-4 border-gray-300 dark:border-gray-600 pl-4 italic text-gray-500 dark:text-gray-400;
 }
 
 /* Inline Code */
-.tiptap code {
+code, .tiptap code {
     @apply bg-black/5 dark:bg-white/10 text-red-600 px-1 py-0.5 rounded text-sm font-mono;
 }
 
 /* Code Block */
-.tiptap pre {
+pre, .tiptap pre {
     @apply bg-gray-900 text-gray-100 font-mono p-4 rounded-lg overflow-x-auto whitespace-pre-wrap break-words;
 }
-.tiptap pre code {
+pre code, .tiptap pre code {
     @apply text-inherit p-0 bg-transparent text-sm whitespace-pre;
 }
 
@@ -302,7 +302,7 @@
 }
 
 /* Horizontal Rule */
-.tiptap hr {
+hr, .tiptap hr {
     @apply border-0 border-t border-gray-200 dark:border-gray-600 my-4;
 }
 
@@ -313,12 +313,12 @@
 .tiptap-editor-toolbar button.is-active {
     @apply bg-blue-200 dark:bg-blue-600 text-blue-900 dark:text-white border-blue-400 dark:border-blue-500;
 }
-.tiptap-editor-toolbar button:disabled {
+button:disabled, .tiptap-editor-toolbar button:disabled {
     @apply opacity-60 cursor-not-allowed;
 }
 
 /* Select and Color Input Styling */
-.tiptap-editor-toolbar select,
+select, .tiptap-editor-toolbar select,
 .tiptap-editor-toolbar input[type="color"] {
     @apply px-2 py-1 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 cursor-pointer;
 }

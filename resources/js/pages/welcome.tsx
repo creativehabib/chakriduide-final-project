@@ -58,11 +58,13 @@ export default function Homepage() {
             }
         );
     };
-
+console.log(blogs)
     return (
         <>
-            <Head title="চাকরি গাইড - আপনার ক্যারিয়ার সহচর" />
-
+            {/* ✅ Set meta-title and other tags */}
+            <Head>
+                <title>চাকরি গাইড - আপনার ক্যারিয়ার সহচর</title>
+            </Head>
             {/* Header */}
             <header className="bg-gray-100 shadow-md sticky top-0 z-50">
                 <div className="container mx-auto text-gray-800 flex justify-between items-center px-4 py-4">
