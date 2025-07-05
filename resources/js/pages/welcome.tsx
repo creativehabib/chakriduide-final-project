@@ -129,39 +129,39 @@ export default function Homepage() {
             </section>
 
             {/* Guide/Blog Section */}
-            <section className="py-12 bg-white">
+            <section className="py-12 bg-white dark:bg-gray-900">
                 <div className="container mx-auto px-4">
-                    <h2 className="text-2xl font-bold mb-6">প্রস্তুতি ও ক্যারিয়ার গাইড</h2>
-
+                    <h3 className="text-2xl font-semibold mb-6">প্রস্তুতি ও ক্যারিয়ার গাইড</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {blogList.map((blog) => (
-                            <div key={blog.id} className="p-4 bg-gray-100 rounded shadow">
+                        {blogList.map((post) => (
+                            <Link
+                                key={post.id}
+                                href={`/${post.slug}`}
+                                className="bg-gray-50 p-5 rounded-lg shadow hover:shadow-md dark:bg-gray-800 transition dark:text-white"
+                            >
                                 <img
                                     src={getImageUrl(
-                                        blog.media?.path,
+                                        post.media?.path,
                                         400,
-                                        300,
-                                        blog.media?.name || 'No Image'
+                                        350,
+                                        post.media?.name || 'No Image'
                                     )}
-                                    alt={blog.media?.name || blog.name}
-                                    className="w-full h-40 object-cover rounded mb-3"
+                                    alt={post.media?.name || post.name}
+                                    className="h-40 w-full object-cover rounded mb-4"
                                 />
-                                <h3 className="text-lg font-semibold">{blog.name}</h3>
-                                <p className="text-sm text-gray-600 line-clamp-3">{blog.description}</p>
-                            </div>
+                                <h4 className="text-lg font-semibold">{post.name}</h4>
+                                <p className="text-sm text-gray-700 mt-2 line-clamp-3 dark:text-gray-50">{post.description}</p>
+                                <span className="text-yellow-600 mt-2 inline-block font-medium hover:underline">আরও পড়ুন</span>
+                            </Link>
                         ))}
-
-                        {/* Skeleton cards */}
-                        {loading &&
-                            Array.from({ length: 3 }).map((_, i) => <BlogCardSkeleton key={i} />)}
                     </div>
-
+                    {/* Load More Button */}
                     {nextPageUrl && (
-                        <div className="text-center mt-6">
+                        <div className="text-center mt-8">
                             <button
                                 onClick={loadMore}
                                 disabled={loading}
-                                className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-2 rounded"
+                                className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-2 rounded text-base font-medium"
                             >
                                 {loading ? 'লোড হচ্ছে...' : 'আরও দেখুন'}
                             </button>
@@ -179,12 +179,3 @@ export default function Homepage() {
         </>
     );
 }
-// ✅ Skeleton Loader Component
-const BlogCardSkeleton = () => (
-    <div className="p-4 bg-gray-100 rounded shadow animate-pulse">
-        <div className="h-40 bg-gray-300 rounded mb-3"></div>
-        <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
-        <div className="h-3 bg-gray-300 rounded w-full mb-1"></div>
-        <div className="h-3 bg-gray-300 rounded w-5/6"></div>
-    </div>
-);
