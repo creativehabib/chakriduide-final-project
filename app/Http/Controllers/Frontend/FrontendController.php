@@ -9,6 +9,7 @@ use App\Repositories\BlogRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class FrontendController extends Controller
 {
@@ -28,7 +29,7 @@ class FrontendController extends Controller
         ]);
     }
 
-    public function show($slug)
+    public function singlePost($slug): Response
     {
         $blog = Blog::with(['media', 'metas', 'category', 'user'])
             ->where('slug', $slug)
