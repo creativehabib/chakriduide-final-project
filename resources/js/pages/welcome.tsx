@@ -4,7 +4,6 @@ import { Head, Link, usePage, router } from '@inertiajs/react'; // Import 'route
 import { ChevronRight } from 'lucide-react';
 import { BlogType } from '@/types/globals';
 import { getImageUrl } from '@/helper/helpers';
-
 export interface PaginationLink {
     url: string | null;
     label: string;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BlogResource;
+use App\Models\Blog;
 use App\Repositories\BlogRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -27,9 +28,16 @@ class FrontendController extends Controller
         ]);
     }
 
-    public function show()
+    public function show($slug)
     {
-        // This method can be used to show a specific blog post or other content
+        $blog = Blog::with(['media', 'metas', 'category', 'user'])
+            ->where('slug', $slug)
+            ->where('status', 'published')
+            ->firstOrFail();
+
+        return Inertia::render('frontend/blog/single', [
+            'blog' => new BlogResource($blog),
+        ]);
     }
 
     // Clean URL JSON pagination

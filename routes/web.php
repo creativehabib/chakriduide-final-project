@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [FrontendController::class, 'index'])->name('home');
+Route::get('/{slug}', [FrontendController::class, 'show'])->name('blog.show');
 
 Route::post('/admin/clear-cache', function () {
     Cache::flush();
