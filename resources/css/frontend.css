@@ -1,0 +1,14 @@
+/* resources/css/frontend.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@100..900&family=Noto+Serif+Bengali:wght@100..900&family=Tiro+Bangla:ital@0;1&display=swap');
+@import "tailwindcss";
+@import "tailwindcss/utilities";
+@plugin 'tailwindcss-animate';
+body {
+    font-family: 'Noto Sans Bengali', sans-serif;
+    background-color: #f8f9fa; /* Light background for better readability */
+    color: #343a40; /* Dark text color */
+    margin: 0;
+    padding: 0;
+}

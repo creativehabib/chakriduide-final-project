@@ -26,6 +26,83 @@ const Single = () => {
                         blog.meta_image?.name || 'No Image'
                     )} />
                 )}
+                <style>
+                    {`
+                       p{
+                            font-size: 1rem;
+                            line-height: 1.6;
+                            margin-bottom: 1rem;
+                            letter-spacing: 0.5px;
+                       }
+                       h1, h2, h3, h4, h5 {
+                            font-weight: 600;
+                            margin-bottom: 0.5rem;
+                       }
+                       h1 {
+                            font-size: 2rem;
+                            margin-top: 1.5rem;
+                       }
+                       h2 {
+                            font-size: 1.75rem;
+                            margin-top: 1.25rem;
+                       }
+                       h3 {
+                            font-size: 1.5rem;
+                            margin-top: 1rem;
+                       }
+                       h4{
+                            font-size: 1.25rem;
+                            margin-top: 0.75rem;
+                       }
+                       table{
+                            border-collapse:collapse;
+                            width: 100%;
+                            margin: 1rem 0;
+                            font-size: 0.9rem;
+                            color: #333;
+                            background-color: #f9f9f9;
+                            border-radius: 0.5rem;
+                       }
+                       th, td {
+                            border: 1px solid #ddd;
+                            padding: 2px;
+                            }
+
+                          th {
+                            background-color: #f2f2f2;
+                            font-weight: 600;
+                            text-align: left;
+                            }
+                          td {
+                            text-align: left;
+                            }
+                          blockquote {
+                            margin: 1rem 0;
+                            padding: 0.5rem 1rem;
+                            border-left: 4px solid #ccc;
+                            background-color: #f9f9f9;
+                            font-style: italic;
+                            color: #555;
+                            }
+                          ul{
+                            padding-left: 1.5rem;
+                            margin-bottom: 1rem;
+                            line-height: 1.6;
+                            list-style-type: square;
+                          }
+                          li {
+                             margin-bottom: 0.5rem;
+                             line-height: 1.6;
+                            }
+
+                       ol {
+                            padding-left: 1.5rem;
+                            margin-bottom: 1rem;
+                            list-style-type: decimal;
+                            line-height: 1.6;
+                       }
+                    `}
+                </style>
             </Head>
             <header className="bg-gray-100 shadow-md sticky top-0 z-50">
                 <div className="container mx-auto text-gray-800 flex justify-between items-center px-4 py-4">
@@ -59,7 +136,9 @@ const Single = () => {
                         <span> প্রকাশিত: {new Date(blog.created_at).toLocaleDateString('bn-BD')}</span>
                         {blog.category && <span> | বিভাগ: {blog.category.name}</span>}
                     </div>
-                    <div className=" text-justify" dangerouslySetInnerHTML={{ __html: blog.content }} />
+                    <div className="prose lg:prose-xl max-w-none dark:prose-invert leading-8">
+                        <div className={'prose prose-sm sm:prose lg:prose-lg max-w-none'} dangerouslySetInnerHTML={{ __html: blog.content }} />
+                    </div>
 
                     {/* Share buttons */}
                     <div className="flex gap-3 mt-6 items-center">

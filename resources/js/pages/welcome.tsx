@@ -58,7 +58,6 @@ export default function Homepage() {
             }
         );
     };
-console.log(blogs)
     return (
         <>
             {/* ✅ Set meta-title and other tags */}
