@@ -152,7 +152,7 @@ export default function BlogIndex() {
                                                     className="h-10 w-10 rounded object-cover"
                                                 />
                                             </TableCell>
-                                            <TableCell>
+                                            <TableCell width={150}>
                                                 <Permalink slug={post.slug} name={post.name} />
                                             </TableCell>
                                             <TableCell>{post.category ? post.category?.name : 'No Category'}</TableCell>

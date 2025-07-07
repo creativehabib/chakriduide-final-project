@@ -105,11 +105,11 @@ const Single = () => {
                 </style>
             </Head>
             <header className="bg-gray-100 shadow-md sticky top-0 z-50">
-                <div className="container mx-auto text-gray-800 flex justify-between items-center px-4 py-4">
+                <div className="container mx-auto text-gray-800 flex justify-between items-center px-4 py-2">
                     <Link href="/" className="text-2xl font-bold text-blue-900 hover:text-blue-700">
-                        <img src={'logo.svg'} width={'120px'} height={'40px'} alt='logo'/>
+                        <img src={'logo.svg'} width={'120px'} height={'20px'} alt='logo'/>
                     </Link>
-                    <nav className="hidden md:flex gap-6 text-sm font-medium">
+                    <nav className="hidden md:flex gap-6 text-sm font-medium flex items-center">
                         <Link href="/jobs" className="hover:text-yellow-300">চাকরির খবর</Link>
                         <Link href="/quiz" className="hover:text-yellow-300">MCQ কুইজ</Link>
                         <Link href="/guides" className="hover:text-yellow-300">প্রস্তুতি গাইড</Link>
@@ -160,6 +160,7 @@ const Single = () => {
                     {/* Comment Box */}
                     <div className="mt-10">
                         <h3 className="text-xl font-bold mb-3">মন্তব্য দিন</h3>
+                        <p>Your email address will not be published. Required fields are marked *</p>
                         <form>
                             <textarea className="w-full border rounded p-3 mb-3" placeholder="আপনার মন্তব্য লিখুন..." rows={4}></textarea>
                             <button type="submit" className="bg-blue-600 text-white px-5 py-2 rounded">পাঠান</button>

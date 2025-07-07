@@ -66,11 +66,11 @@ export default function Homepage() {
             </Head>
             {/* Header */}
             <header className="bg-gray-100 shadow-md sticky top-0 z-50">
-                <div className="container mx-auto text-gray-800 flex justify-between items-center px-4 py-4">
+                <div className="container mx-auto text-gray-800 flex justify-between items-center px-4 py-2">
                     <Link href="/" className="text-2xl font-bold text-blue-900 hover:text-blue-700">
-                        <img src={'logo.svg'} width={'120px'} height={'40px'} alt='logo'/>
+                        <img src={'logo.svg'} width={'120px'} height={'20px'} alt='logo'/>
                     </Link>
-                    <nav className="hidden md:flex gap-6 text-sm font-medium">
+                    <nav className="hidden md:flex gap-6 text-sm font-medium flex items-center">
                         <Link href="/jobs" className="hover:text-yellow-300">চাকরির খবর</Link>
                         <Link href="/quiz" className="hover:text-yellow-300">MCQ কুইজ</Link>
                         <Link href="/guides" className="hover:text-yellow-300">প্রস্তুতি গাইড</Link>
