@@ -35,15 +35,17 @@ class FrontendController extends Controller
             ->where('slug', $slug)
             ->where('status', 'published')
             ->firstOrFail();
+        $blogs = $this->blogRepository->paginate();
         $relatedBlogs = Blog::with('category','user', 'media')
         ->where('id', '!=', $blog->id)
             ->where('status', 'published')
             ->where('category_id', $blog->category_id)
             ->latest()
-            ->take(3)
+            ->take(5)
             ->get();
         return Inertia::render('frontend/blog/single', [
             'blog' => new BlogResource($blog),
+            'blogs' => BlogResource::collection($blogs),
             'relatedBlogs' => BlogResource::collection($relatedBlogs),
         ]);
     }

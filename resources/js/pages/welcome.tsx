@@ -4,6 +4,8 @@ import { Head, Link, usePage, router } from '@inertiajs/react'; // Import 'route
 import { ChevronRight } from 'lucide-react';
 import { BlogType } from '@/types/globals';
 import { getImageUrl } from '@/helper/helpers';
+import HerroComponent from '@/pages/frontend/components/HerroComponent';
+import MainNav from '@/pages/frontend/layouts/MainNav';
 export interface PaginationLink {
     url: string | null;
     label: string;
@@ -64,43 +66,36 @@ export default function Homepage() {
             <Head>
                 <title>চাকরি গাইড - আপনার ক্যারিয়ার সহচর</title>
             </Head>
-            {/* Header */}
-            <header className="bg-gray-100 shadow-md sticky top-0 z-50">
-                <div className="container mx-auto text-gray-800 flex justify-between items-center px-4 py-2">
-                    <Link href="/" className="text-2xl font-bold text-blue-900 hover:text-blue-700">
-                        <img src={'logo.svg'} width={'120px'} height={'20px'} alt='logo'/>
-                    </Link>
-                    <nav className="hidden md:flex gap-6 text-sm font-medium flex items-center">
-                        <Link href="/jobs" className="hover:text-yellow-300">চাকরির খবর</Link>
-                        <Link href="/quiz" className="hover:text-yellow-300">MCQ কুইজ</Link>
-                        <Link href="/guides" className="hover:text-yellow-300">প্রস্তুতি গাইড</Link>
-                        <Link href="/login" className="bg-yellow-400 text-blue-900 px-4 py-1.5 rounded hover:bg-yellow-300">লগইন</Link>
-                    </nav>
-                </div>
-            </header>
+
+            <MainNav/>
+
 
             {/* Hero Section */}
-            <section className="py-16 bg-gradient-to-r from-blue-50 via-blue-100 to-blue-50 text-center">
-                <div className="container mx-auto px-4 max-w-3xl">
-                    <h2 className="text-4xl font-bold text-blue-900 mb-4 leading-snug">আপনার ক্যারিয়ারের জন্য <br /> সম্পূর্ণ গাইডলাইন</h2>
-                    <p className="text-gray-700 mb-8 text-lg">নিয়োগ বিজ্ঞপ্তি, প্রস্তুতি কুইজ ও MCQ অনুশীলন একসাথে</p>
-                    <div className="flex justify-center flex-wrap gap-4">
-                        <Link href="/quiz" className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded text-base font-medium">MCQ অনুশীলন শুরু করুন</Link>
-                        <Link href="/jobs" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded text-base font-medium">চাকরির খবর দেখুন</Link>
-                    </div>
-                </div>
-            </section>
+            <HerroComponent/>
 
             {/* Job Circular Section */}
-            <section className="py-12 bg-white">
-                <div className="container mx-auto px-4">
-                    <h3 className="text-2xl font-semibold mb-6">সাম্প্রতিক চাকরির খবর</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <section className="py-16 bg-white dark:bg-gray-900">
+                <div className="container mx-auto px-4 max-w-7xl">
+                    <h3 className="text-3xl font-bold mb-10 text-gray-900 dark:text-white text-center md:text-left">
+                        সাম্প্রতিক চাকরির খবর
+                    </h3>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         {[1, 2, 3].map((job) => (
-                            <div key={job} className="bg-gray-50 p-5 rounded-lg shadow hover:shadow-md transition">
-                                <h4 className="text-lg font-semibold text-blue-800">সরকারি প্রাথমিক শিক্ষক নিয়োগ</h4>
-                                <p className="text-sm text-gray-600">আবেদনের শেষ তারিখ: ৩০ জুন ২০২৫</p>
-                                <Link href="/jobs/1" className="inline-flex items-center text-blue-600 mt-3 font-medium hover:underline">
+                            <div
+                                key={job}
+                                className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-lg transition duration-300 p-6"
+                            >
+                                <h4 className="text-xl font-semibold text-blue-800 dark:text-blue-400 mb-2">
+                                    সরকারি প্রাথমিক শিক্ষক নিয়োগ
+                                </h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                                    আবেদনের শেষ তারিখ: ৩০ জুন ২০২৫
+                                </p>
+                                <Link
+                                    href="/jobs/1"
+                                    className="inline-flex items-center text-blue-600 dark:text-blue-400 font-medium hover:underline"
+                                >
                                     বিস্তারিত <ChevronRight className="w-4 h-4 ml-1" />
                                 </Link>
                             </div>
@@ -109,19 +104,23 @@ export default function Homepage() {
                 </div>
             </section>
 
+
             {/* Quiz Section */}
-            <section className="py-12 bg-gray-50">
-                <div className="container mx-auto px-4">
-                    <h3 className="text-2xl font-semibold mb-6">বিষয়ভিত্তিক কুইজ অনুশীলন</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <section className="py-16 bg-gray-50 dark:bg-gray-950 transition-colors duration-500">
+                <div className="container mx-auto px-4 max-w-7xl">
+                    <h3 className="text-3xl font-bold mb-10 text-gray-900 dark:text-white text-center md:text-left">
+                        বিষয়ভিত্তিক কুইজ অনুশীলন
+                    </h3>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                         {['BCS', 'Bank', 'প্রাথমিক'].map((topic, index) => (
                             <Link
                                 key={index}
                                 href={`/quiz/${topic.toLowerCase()}`}
-                                className="block bg-white rounded-lg shadow p-5 hover:shadow-md border border-gray-200"
+                                className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition duration-300 p-6"
                             >
-                                <h4 className="text-lg font-bold text-gray-800">{topic} কুইজ</h4>
-                                <p className="text-sm text-gray-600">১০টি MCQ প্রশ্ন</p>
+                                <h4 className="text-lg font-bold text-gray-800 dark:text-white mb-2">{topic} কুইজ</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-300">১০টি MCQ প্রশ্ন</p>
                             </Link>
                         ))}
                     </div>
@@ -129,39 +128,61 @@ export default function Homepage() {
             </section>
 
             {/* Guide/Blog Section */}
-            <section className="py-12 bg-white dark:bg-gray-900">
-                <div className="container mx-auto px-4">
-                    <h3 className="text-2xl font-semibold mb-6">প্রস্তুতি ও ক্যারিয়ার গাইড</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <section className="py-12 bg-gray-100 dark:bg-gray-900 transition-colors duration-500">
+                <div className="container mx-auto px-4 max-w-7xl">
+                    <h3 className="text-3xl font-extrabold mb-10 text-gray-900 dark:text-white text-center md:text-left">
+                        প্রস্তুতি ও ক্যারিয়ার গাইড
+                    </h3>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         {blogList.map((post) => (
-                            <Link
+                            <div
                                 key={post.id}
-                                href={`/${post.slug}`}
-                                className="bg-gray-50 p-5 rounded-lg shadow hover:shadow-md dark:bg-gray-800 transition dark:text-white"
+                                className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col"
                             >
-                                <img
-                                    src={getImageUrl(
-                                        post.media?.path,
-                                        400,
-                                        350,
-                                        post.media?.name || 'No Image'
-                                    )}
-                                    alt={post.media?.name || post.name}
-                                    className="h-40 w-full object-cover rounded mb-4"
-                                />
-                                <h4 className="text-lg font-semibold">{post.name}</h4>
-                                <p className="text-sm text-gray-700 mt-2 line-clamp-3 dark:text-gray-50">{post.description}</p>
-                                <span className="text-yellow-600 mt-2 inline-block font-medium hover:underline">আরও পড়ুন</span>
-                            </Link>
+                                {/* Image */}
+                                <div className="overflow-hidden rounded-t-xl">
+                                    <img
+                                        src={getImageUrl(post.media?.path, 400, 350, post.media?.name || 'No Image')}
+                                        alt={post.media?.name || post.name}
+                                        className="w-full h-48 object-cover rounded-t-xl transform transition-transform duration-300 hover:scale-105"
+                                        loading="lazy"
+                                    />
+                                </div>
+
+                                {/* Content */}
+                                <div className="p-6 flex flex-col flex-grow">
+                                    <h4 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white line-clamp-2">
+                                        {post.name}
+                                    </h4>
+
+                                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-6 line-clamp-3">
+                                        {post.description}
+                                    </p>
+
+                                    {/* Read More Link */}
+                                    <a
+                                        href={`/${post.slug}`}
+                                        className="mt-auto text-yellow-600 font-semibold hover:underline cursor-pointer"
+                                    >
+                                        আরও পড়ুন &rarr;
+                                    </a>
+                                </div>
+                            </div>
                         ))}
                     </div>
+
                     {/* Load More Button */}
-                    {nextPageUrl && (
-                        <div className="text-center mt-8">
+                    {!nextPageUrl ? (
+                        <p className="text-center mt-12 text-gray-500 dark:text-gray-400 text-lg font-medium">
+                            আর কিছু নেই
+                        </p>
+                    ) : (
+                        <div className="text-center mt-12">
                             <button
                                 onClick={loadMore}
                                 disabled={loading}
-                                className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-2 rounded text-base font-medium"
+                                className="bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {loading ? 'লোড হচ্ছে...' : 'আরও দেখুন'}
                             </button>
@@ -170,12 +191,78 @@ export default function Homepage() {
                 </div>
             </section>
 
+
             {/* Footer */}
-            <footer className="bg-blue-900 text-white py-6 mt-12">
-                <div className="container mx-auto px-4 text-center text-sm">
-                    <p>&copy; {new Date().getFullYear()} chakriguide.com | সকল অধিকার সংরক্ষিত</p>
+            <footer className="bg-gradient-to-r from-gray-950  to-gray-950 text-white py-12">
+                <div className="container mx-auto px-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-sm">
+                        {/* About */}
+                        <div>
+                            <h5 className="text-lg font-semibold mb-4 text-yellow-400 tracking-wide">চাকরি গাইড</h5>
+                            <p className="text-gray-300 leading-relaxed">
+                                চাকরি প্রস্তুতির জন্য নির্ভরযোগ্য প্ল্যাটফর্ম। MCQ কুইজ, গাইড ও চাকরির খবর — সব একসাথে।
+                            </p>
+                        </div>
+
+                        {/* Quick Links */}
+                        <div>
+                            <h5 className="text-lg font-semibold mb-4 text-yellow-400 tracking-wide">দ্রুত লিংক</h5>
+                            <ul className="space-y-2">
+                                <li>
+                                    <Link href="/jobs" className="text-gray-300 hover:text-yellow-300 transition duration-200">
+                                        চাকরির খবর
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/quiz" className="text-gray-300 hover:text-yellow-300 transition duration-200">
+                                        MCQ অনুশীলন
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/guides" className="text-gray-300 hover:text-yellow-300 transition duration-200">
+                                        প্রস্তুতি গাইড
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/login" className="text-gray-300 hover:text-yellow-300 transition duration-200">
+                                        লগইন
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+
+                        {/* Newsletter */}
+                        <div>
+                            <h5 className="text-lg font-semibold mb-4 text-yellow-400 tracking-wide">নিউজলেটার</h5>
+                            <p className="text-gray-300 mb-3 leading-relaxed">
+                                নতুন চাকরির আপডেট পেতে সাবস্ক্রাইব করুন।
+                            </p>
+                            <form className="flex flex-col sm:flex-row gap-3">
+                                <input
+                                    type="email"
+                                    placeholder="আপনার ইমেইল"
+                                    className="w-full px-4 py-2 rounded-md text-sm bg-white text-gray-800 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+                                />
+                                <button
+                                    type="submit"
+                                    className="bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-semibold px-5 py-2 rounded-md text-sm transition"
+                                >
+                                    সাবস্ক্রাইব
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    {/* Divider */}
+                    <div className="border-t border-blue-800 my-8"></div>
+
+                    {/* Footer bottom */}
+                    <div className="text-center text-gray-400 text-xs">
+                        &copy; {new Date().getFullYear()} <span className="font-medium text-white">chakriguide.com</span> | সকল অধিকার সংরক্ষিত
+                    </div>
                 </div>
             </footer>
+
         </>
     );
 }

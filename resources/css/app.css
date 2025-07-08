@@ -9,8 +9,6 @@
 @custom-variant dark (&:is(.dark *));
 body {
     font-family: "Noto Serif Bengali", serif;
-    background-color: #f8f9fa; /* Light background for better readability */
-    color: #343a40; /* Dark text color */
     margin: 0;
     padding: 0;
 }
