@@ -43,6 +43,7 @@
         {{-- Load the Shurjo font --}}
         <link rel="preload" href="/fonts/ShurjoWeb_400.woff2" as="font" type="font/woff2" crossorigin="anonymous">
         <link rel="preload" href="/fonts/ShurjoWeb_700.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
         @routes
         @viteReactRefresh
         @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])

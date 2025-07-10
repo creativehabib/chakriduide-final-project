@@ -22,3 +22,11 @@
   font-style: normal;
   font-display: swap;
 }
+
+@font-face {
+    font-family: 'SolaimanLipiNormal';
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
+    src: local('SolaimanLipiNormal'), url('./fonts/solaimanlipi.woff') format('woff');
+}
