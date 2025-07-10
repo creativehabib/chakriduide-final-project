@@ -37,7 +37,12 @@
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@100..900&display=swap" rel="stylesheet">
+        {{-- Load the Roboto font --}}
+        <link rel="preload" href="/fonts/roboto-regular-webfont.woff" as="font" type="font/woff" crossorigin="anonymous">
+
+        {{-- Load the Shurjo font --}}
+        <link rel="preload" href="/fonts/ShurjoWeb_400.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+        <link rel="preload" href="/fonts/ShurjoWeb_700.woff2" as="font" type="font/woff2" crossorigin="anonymous">
         @routes
         @viteReactRefresh
         @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])

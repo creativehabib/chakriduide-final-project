@@ -14,10 +14,14 @@ const MainNav = () => {
     return (
         <>
             <header className="bg-white dark:bg-gray-900 shadow-md sticky top-0 z-50 transition-colors duration-300">
-                <div className="container mx-auto flex justify-between items-center px-6 py-4">
+                <div className="container mx-auto flex justify-between items-center px-6 py-3">
                     {/* Logo */}
                     <Link href="/" className="flex items-center space-x-3">
-                        <img src="/logo.svg" alt="Logo" width={120} height={24} className="h-7 w-auto" />
+                        {localStorage.getItem('theme') === 'dark' ? (
+                            <img src="/logo%20-%20Copy.svg" alt="Logo" className="h-12 w-auto" />
+                        ) : (
+                            <img src="/logo.svg" alt="Logo" className="h-12 w-auto" />
+                        )}
                     </Link>
 
                     {/* Nav Menu (Desktop) */}

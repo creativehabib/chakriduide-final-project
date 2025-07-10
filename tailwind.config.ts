@@ -2,7 +2,6 @@
 import type { Config } from 'tailwindcss'
 import typography from '@tailwindcss/typography'
 import animate from 'tailwindcss-animate'
-import defaultTheme from 'tailwindcss/defaultTheme';
 
 const config: Config = {
     content: [
@@ -15,7 +14,8 @@ const config: Config = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Hind Siliguri', ...defaultTheme.fontFamily.sans],
+                sans: ['Roboto', 'sans-serif'],
+                shurjo: ['Shurjo', 'sans-serif'],
             },
             animation: {
                 'bg-scroll': 'bgScroll 15s ease infinite',

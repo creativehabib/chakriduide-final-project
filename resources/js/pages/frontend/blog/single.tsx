@@ -38,8 +38,9 @@ const Single = () => {
                 <style>
                     {`
                         p{
+                        font-family: 'Shurjo', sans-serif;
                         font-size: 1rem;
-                        line-height: 1.6;
+                        line-height: 1.8;
                         margin-bottom: 1rem;
                         letter-spacing: 0.5px;
                     }
@@ -207,9 +208,7 @@ const Single = () => {
                                     <h5 className="text-sm font-medium text-gray-900 dark:text-yellow-300 line-clamp-2">
                                         {post.name}
                                     </h5>
-                                    <span className="text-xs text-gray-500 dark:text-gray-400">
-          {new Date(post.created_at).toLocaleDateString('bn-BD')}
-        </span>
+                                    <span className="text-xs text-gray-500 dark:text-gray-400">{new Date(post.created_at).toLocaleDateString('bn-BD')}</span>
                                 </div>
                             </Link>
                         ))}

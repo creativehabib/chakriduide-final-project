@@ -76,7 +76,7 @@ export default function Homepage() {
             {/* Job Circular Section */}
             <section className="py-16 bg-white dark:bg-gray-900">
                 <div className="container mx-auto px-4 max-w-7xl">
-                    <h3 className="text-3xl font-bold mb-10 text-gray-900 dark:text-white text-center md:text-left">
+                    <h3 className="text-3xl font-shurjo font-bold mb-10 text-gray-900 dark:text-white text-center md:text-left">
                         সাম্প্রতিক চাকরির খবর
                     </h3>
 
@@ -142,31 +142,34 @@ export default function Homepage() {
                             >
                                 {/* Image */}
                                 <div className="overflow-hidden rounded-t-xl">
-                                    <img
-                                        src={getImageUrl(post.media?.path, 400, 350, post.media?.name || 'No Image')}
-                                        alt={post.media?.name || post.name}
-                                        className="w-full h-48 object-cover rounded-t-xl transform transition-transform duration-300 hover:scale-105"
-                                        loading="lazy"
-                                    />
+                                    <Link href={`/${post.slug}`} className="block">
+                                        <img
+                                            src={getImageUrl(post.media?.path, 400, 350, post.media?.name || 'No Image')}
+                                            alt={post.media?.name || post.name}
+                                            className="w-full h-48 object-cover rounded-t-xl transform transition-transform duration-300 hover:scale-105"
+                                            loading="lazy"
+                                        />
+                                    </Link>
                                 </div>
 
                                 {/* Content */}
                                 <div className="p-6 flex flex-col flex-grow">
-                                    <h4 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white line-clamp-2">
-                                        {post.name}
-                                    </h4>
-
+                                    <Link href={`/${post.slug}`} className="text-blue-600 dark:text-blue-400 hover:underline">
+                                        <h4 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white line-clamp-2">
+                                            {post.name}
+                                        </h4>
+                                    </Link>
                                     <p className="text-gray-600 dark:text-gray-300 text-sm mb-6 line-clamp-3">
                                         {post.description}
                                     </p>
 
                                     {/* Read More Link */}
-                                    <a
+                                    <Link
                                         href={`/${post.slug}`}
                                         className="mt-auto text-yellow-600 font-semibold hover:underline cursor-pointer"
                                     >
                                         আরও পড়ুন &rarr;
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         ))}

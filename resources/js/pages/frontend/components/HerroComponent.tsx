@@ -65,7 +65,7 @@ const Snowfall = () => {
 
 const HeroComponent = () => {
     const [typedText, setTypedText] = useState('');
-    const fullText = 'চাকরি জীবনের জন্য সঠিক গাইডলাইন';
+    const fullText = ' চাকরি জীবনের জন্য সঠিক গাইডলাইন';
     const index = useRef(0);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [visible, setVisible] = useState(false);
