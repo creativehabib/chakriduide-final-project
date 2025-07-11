@@ -89,7 +89,7 @@ export default function Homepage() {
                                 <h4 className="text-xl font-semibold text-blue-800 dark:text-blue-400 mb-2">
                                     সরকারি প্রাথমিক শিক্ষক নিয়োগ
                                 </h4>
-                                <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                                <p className="text-sm text-gray-600 dark:text-gray-200 mb-4">
                                     আবেদনের শেষ তারিখ: ৩০ জুন ২০২৫
                                 </p>
                                 <Link
@@ -202,7 +202,7 @@ export default function Homepage() {
                         {/* About */}
                         <div>
                             <h5 className="text-lg font-semibold mb-4 text-yellow-400 tracking-wide">চাকরি গাইড</h5>
-                            <p className="text-gray-300 leading-relaxed">
+                            <p className="text-gray-200 leading-relaxed">
                                 চাকরি প্রস্তুতির জন্য নির্ভরযোগ্য প্ল্যাটফর্ম। MCQ কুইজ, গাইড ও চাকরির খবর — সব একসাথে।
                             </p>
                         </div>
@@ -212,7 +212,7 @@ export default function Homepage() {
                             <h5 className="text-lg font-semibold mb-4 text-yellow-400 tracking-wide">দ্রুত লিংক</h5>
                             <ul className="space-y-2">
                                 <li>
-                                    <Link href="/jobs" className="text-gray-300 hover:text-yellow-300 transition duration-200">
+                                    <Link href="/jobs" className="text-gray-100 hover:text-yellow-300 transition duration-200">
                                         চাকরির খবর
                                     </Link>
                                 </li>
@@ -248,7 +248,7 @@ export default function Homepage() {
                                 />
                                 <button
                                     type="submit"
-                                    className="bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-semibold px-5 py-2 rounded-md text-sm transition"
+                                    className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-5 py-2 rounded-md text-sm transition"
                                 >
                                     সাবস্ক্রাইব
                                 </button>
