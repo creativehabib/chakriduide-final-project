@@ -27,7 +27,7 @@ const Single = () => {
     return (
         <>
             <Head>
-                <title>{meta?.meta_title}</title>
+                <title>{meta?.meta_title || blog.name}</title>
                 <meta name="description" content={meta?.meta_description || 'Default description'} />
                 <meta property="og:title" content={meta?.meta_title} />
                 <meta property="og:description" content={meta?.meta_description} />

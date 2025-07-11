@@ -20,7 +20,7 @@
     @endphp
 
     {{-- Primary SEO --}}
-    <title inertia>{{ $title }}</title>
+    <title inertia>{{ $title ?? config('app.name') }}</title>
     <meta name="description" content="{{ $description }}">
     @unless($index)
         <meta name="robots" content="noindex, nofollow">
