@@ -27,10 +27,8 @@ class BlogResource extends JsonResource
             // 🔹 Metas
             'meta_title' => $this->getMeta('meta_title'),
             'meta_description' => $this->getMeta('meta_description'),
-            'og_img_id' => $this->getMetaInt('meta_image_id'),
-
-            // 🔹 Media Resource from og_img_id
             'meta_image' => MediaResource::make(Media::find($this->getMetaInt('meta_image_id'))),
+            'og_img_id' => $this->getMetaInt('meta_image_id'),
 
             // Relations
             'media' => new MediaResource($this->whenLoaded('media')),

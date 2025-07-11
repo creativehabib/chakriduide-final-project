@@ -28,9 +28,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::middleware(['auth'])->prefix('admin')->group(function () {
-    Route::get('settings', [SettingController::class, 'edit'])->name('admin.settings.edit');
-    Route::post('settings', [SettingController::class, 'update'])->name('admin.settings.update');
-    Route::post('settings/clear-cache', [SettingController::class, 'clearCache'])->name('admin.settings.clear');
 
     Route::get('/slug-check', [SettingController::class, 'check'])->name('slug.check');
 

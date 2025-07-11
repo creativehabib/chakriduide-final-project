@@ -8,15 +8,19 @@ use Illuminate\Support\Facades\Cache;
 class Setting extends Model
 {
     protected $fillable = ['key', 'value'];
+    public $timestamps = true;
 
-    public static function get(string $key, $default = null): mixed
+    public static function get($key, $default = null)
     {
-        return Cache::rememberForever("setting_" . $key, fn () => static::where('key', $key)->value('value') ?? $default);
+        return Cache::rememberForever("setting_{$key}", function () use ($key, $default) {
+            return static::where('key', $key)->value('value') ?? $default;
+        });
     }
 
-    public static function set(string $key, string $value): void
+    public static function set($key, $value)
     {
         static::updateOrCreate(['key' => $key], ['value' => $value]);
-        Cache::forget("setting_" . $key);
+        Cache::forget("setting_{$key}");
+        Cache::forever("setting_{$key}", $value);
     }
 }

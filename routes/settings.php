@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::middleware('auth')->group(function () {
+    Route::get('settings/general', [SettingController::class, 'edit'])->name('admin.settings.edit');
+    Route::post('settings', [SettingController::class, 'update'])->name('admin.settings.update');
+    Route::post('settings/clear', [SettingController::class, 'clearCache'])->name('admin.settings.clear');
+
+
+
     Route::redirect('settings', 'settings/profile');
 
     Route::get('settings/profile', [ProfileController::class, 'edit'])->name('profile.edit');

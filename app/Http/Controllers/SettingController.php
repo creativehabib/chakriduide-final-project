@@ -13,29 +13,48 @@ class SettingController extends Controller
 {
     public function edit()
     {
+        $settings = Setting::pluck('value', 'key')->toArray();
         return Inertia::render('admin/settings/edit', [
-            'settings' => [
-                'cache_blog_enabled' => Setting::get('cache_blog_enabled', '1'),
-                'cache_blog_duration' => Setting::get('cache_blog_duration', '10'),
-            ]
+            'settings' => $settings,
         ]);
     }
 
     public function update(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'site_name' => 'nullable|string|max:255',
-            'site_email' => 'nullable|email',
-            'site_description' => 'nullable|string',
-            'cache_blog_enabled' => 'required|in:0,1',
-            'cache_blog_duration' => 'required|numeric|min:1',
+            'site_email' => 'nullable|email|max:255',
+            'site_description' => 'nullable|string|max:1000',
+            'cache_blog_enabled' => 'required|boolean',
+            'cache_blog_duration' => 'required|integer|min:1|max:10080',
+
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:500',
+            'og_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
+            'header_script' => 'nullable|string',
+            'footer_script' => 'nullable|string',
+
+            'meta_pixel_id' => 'nullable|string|max:255',
+            'google_analytics_id' => 'nullable|string|max:255',
+            'cookie_consent_text' => 'nullable|string|max:1000',
+            'allow_registration' => 'required|boolean',
+            'allow_indexing' => 'required|boolean',
+
+            'robots_txt' => 'nullable|string|max:5000',
         ]);
 
-        foreach ($validated as $key => $value) {
+        foreach ($request->except(['_token', '_method']) as $key => $value) {
             Setting::set($key, $value);
         }
 
-        return back()->with('success', 'Settings updated successfully.');
+        // Optional: Handle og_image file upload
+        if ($request->hasFile('og_image')) {
+            $file = $request->file('og_image')->store('public/settings');
+            Setting::set('og_image', str_replace('public/', 'storage/', $file));
+        }
+
+        return back()->with('success', 'Settings updated successfully!');
     }
 
     public function clearCache()

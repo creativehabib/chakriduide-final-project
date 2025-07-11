@@ -198,3 +198,10 @@ export interface BlogType {
     created_at: string;
     updated_at: string;
 }
+export interface MetaType {
+    meta_title: string;
+    meta_description: string;
+    meta_image: string;
+    index: boolean;
+    name: string;
+}

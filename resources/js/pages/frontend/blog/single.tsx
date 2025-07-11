@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Head, Link, usePage } from '@inertiajs/react';
-import { BlogType } from '@/types/globals';
+import { BlogType, MetaType } from '@/types/globals';
 import { getImageUrl } from '@/helper/helpers';
 import { Facebook, Linkedin, Twitter, User } from 'lucide-react';
 import {
@@ -23,21 +23,22 @@ interface RecentBlogs {
 }
 
 const Single = () => {
-    const { blog, relatedBlogs, blogs } = usePage<{ blog: BlogType; blogs: RecentBlogs; relatedBlogs: RelatedBlogsProps }>().props;
-
+    const { blog, relatedBlogs, blogs, meta } = usePage<{ blog: BlogType; meta: MetaType; blogs: RecentBlogs; relatedBlogs: RelatedBlogsProps }>().props;
     return (
         <>
             <Head>
-                <title>{blog.name}</title>
-                <meta name="description" content={blog.meta_description || 'Blog post details'} />
-                <meta property="og:title" content={blog.meta_title} />
-                <meta property="og:description" content={blog.meta_description || 'Blog post details'} />
-                {blog.meta_image?.path && (
-                    <meta
-                        property="og:image"
-                        content={getImageUrl(blog.meta_image.path, 400, 350, blog.meta_image.name || 'No Image')}
-                    />
-                )}
+                <title>{meta?.meta_title}</title>
+                <meta name="description" content={meta?.meta_description || 'Default description'} />
+                <meta property="og:title" content={meta?.meta_title} />
+                <meta property="og:description" content={meta?.meta_description} />
+                <meta name="twitter:image" content={meta?.meta_image ? getImageUrl(meta?.meta_image, 400, 350, meta?.name || 'No Image') : ''} />
+                <meta property="og:url" content={window.location.href} />
+                <meta property="og:type" content="article" />
+
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={meta?.meta_title} />
+                <meta name="twitter:description" content={meta?.meta_description} />
+                <meta name="twitter:image" content={meta?.meta_image ? getImageUrl(meta?.meta_image, 400, 350, meta?.name || 'No Image') : ''} />
             </Head>
 
             <MainNav />

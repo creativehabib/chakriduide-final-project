@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BlogResource;
+use App\Http\Resources\MetaResource;
 use App\Models\Blog;
 use App\Repositories\BlogRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -47,6 +49,7 @@ class FrontendController extends Controller
             'blog' => new BlogResource($blog),
             'blogs' => BlogResource::collection($blogs),
             'relatedBlogs' => BlogResource::collection($relatedBlogs),
+            'meta' => new MetaResource($blog),
         ]);
     }
 
