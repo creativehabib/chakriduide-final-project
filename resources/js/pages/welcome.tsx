@@ -154,19 +154,19 @@ export default function Homepage() {
 
                                 {/* Content */}
                                 <div className="p-6 flex flex-col flex-grow">
-                                    <Link href={`/${post.slug}`} className="text-blue-600 dark:text-blue-400 hover:underline">
-                                        <h4 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white line-clamp-2">
+                                    <Link href={`/${post.slug}`} className="block">
+                                        <h4 className="font-semibold text-yellow-600 dark:text-yellow-300 hover:underline line-clamp-2 text-xl  mb-3">
                                             {post.name}
                                         </h4>
                                     </Link>
-                                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-6 line-clamp-3">
+                                    <p className="text-gray-600 dark:text-gray-300 text-md mb-6 line-clamp-3">
                                         {post.description}
                                     </p>
 
                                     {/* Read More Link */}
                                     <Link
                                         href={`/${post.slug}`}
-                                        className="mt-auto text-yellow-600 font-semibold hover:underline cursor-pointer"
+                                        className="mt-auto text-yellow-600 dark:text-yellow-300 font-semibold hover:underline cursor-pointer"
                                     >
                                         আরও পড়ুন &rarr;
                                     </Link>

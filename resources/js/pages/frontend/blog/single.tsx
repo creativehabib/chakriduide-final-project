@@ -35,95 +35,17 @@ const Single = () => {
                         content={getImageUrl(blog.meta_image.path, 400, 350, blog.meta_image.name || 'No Image')}
                     />
                 )}
-                <style>
-                    {`
-                        p{
-                        font-family: 'Shurjo', sans-serif;
-                        font-size: 1rem;
-                        line-height: 1.8;
-                        margin-bottom: 1rem;
-                        letter-spacing: 0.5px;
-                    }
-                        h1, h2, h3, h4, h5 {
-                        font-weight: 600;
-                        margin-bottom: 0.5rem;
-                    }
-                        h1 {
-                        font-size: 2rem;
-                        margin-top: 1.5rem;
-                    }
-                        h2 {
-                        font-size: 1.75rem;
-                        margin-top: 1.25rem;
-                    }
-                        h3 {
-                        font-size: 1.5rem;
-                        margin-top: 1rem;
-                    }
-                        h4{
-                        font-size: 1.25rem;
-                        margin-top: 0.75rem;
-                    }
-                        table{
-                        border-collapse:collapse;
-                        width: 100%;
-                        margin: 1rem 0;
-                        font-size: 0.9rem;
-                        color: #333;
-                        background-color: #f9f9f9;
-                        border-radius: 0.5rem;
-                    }
-                        th, td {
-                        border: 1px solid #ddd;
-                        padding: 2px;
-                    }
-
-                        th {
-                        background-color: #f2f2f2;
-                        font-weight: 600;
-                        text-align: left;
-                    }
-                        td {
-                        text-align: left;
-                    }
-                        blockquote {
-                        margin: 1rem 0;
-                        padding: 0.5rem 1rem;
-                        border-left: 4px solid #ccc;
-                        background-color: #f9f9f9;
-                        font-style: italic;
-                        color: #555;
-                    }
-                        ul{
-                        padding-left: 1.5rem;
-                        margin-bottom: 1rem;
-                        line-height: 1.6;
-                        list-style-type: square;
-                    }
-                        li {
-                        margin-bottom: 0.5rem;
-                        line-height: 1.6;
-                    }
-
-                        ol {
-                        padding-left: 1.5rem;
-                        margin-bottom: 1rem;
-                        list-style-type: decimal;
-                        line-height: 1.6;
-                    }
-                    ` }
-                </style>
             </Head>
 
            <MainNav/>
 
             {/* Main content */}
             <div className="container mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 px-4 sm:px-6 lg:px-6 py-8">
-                <div className="lg:col-span-8 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-6 rounded shadow-md">
+                <div className="content lg:col-span-8 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-6 rounded shadow-md">
                     {blog.media && (
                         <img src={getImageUrl(blog.media.path, 800, 400, blog.media.name || 'No Image')} alt={blog.media.name} className="w-full rounded mb-4" />
                     )}
-                    <h2 className="font-bold text-2xl mb-4 text-gray-900 dark:text-white">{blog.name}</h2>
+                    <h1 className="font-bold text-3xl mb-4 text-gray-900 dark:text-white">{blog.name}</h1>
                     <div className="text-sm text-gray-700 dark:text-gray-400 mb-4">
                         <span>লেখক: {blog.user?.name || 'অজানা'}</span> | <span>প্রকাশিত: {new Date(blog.created_at).toLocaleDateString('bn-BD')}</span> {blog.category && <span> | বিভাগ: {blog.category.name}</span>}
                     </div>
@@ -160,7 +82,7 @@ const Single = () => {
                                                         {post.category?.name && (
                                                             <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full w-fit mb-2 font-semibold dark:bg-yellow-800 dark:text-yellow-200">{post.category.name}</span>
                                                         )}
-                                                        <h4 className="font-semibold text-base text-gray-900 dark:text-white line-clamp-2 mb-1">{post.name}</h4>
+                                                        <h4 className="font-medium text-gray-900 dark:text-yellow-300 hover:underline line-clamp-2 mb-1">{post.name}</h4>
                                                         <div className="mt-auto text-xs text-gray-500 dark:text-gray-400 flex justify-between">
                                                             <span>{post.user?.name || 'অজানা'}</span>
                                                             <span>{new Date(post.created_at).toLocaleDateString('bn-BD')}</span>
@@ -205,9 +127,9 @@ const Single = () => {
                                     />
                                 )}
                                 <div>
-                                    <h5 className="text-sm font-medium text-gray-900 dark:text-yellow-300 line-clamp-2">
+                                    <h4 className=" font-medium text-gray-900 dark:text-yellow-300 hover:underline line-clamp-2">
                                         {post.name}
-                                    </h5>
+                                    </h4>
                                     <span className="text-xs text-gray-500 dark:text-gray-400">{new Date(post.created_at).toLocaleDateString('bn-BD')}</span>
                                 </div>
                             </Link>

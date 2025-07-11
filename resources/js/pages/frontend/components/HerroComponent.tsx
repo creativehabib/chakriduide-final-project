@@ -122,7 +122,7 @@ const HeroComponent = () => {
                     </Link>
                     <Link
                         href="/jobs"
-                        className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full text-base font-semibold shadow-lg transition duration-300 hover:scale-105 hover:ring-2 hover:ring-blue-400"
+                        className="inline-flex items-center gap-2 bg-yellow-600 hover:bg-yellow-400 text-white px-6 py-3 rounded-full text-base font-semibold shadow-lg transition duration-300 hover:scale-105 hover:ring-2 hover:ring-yellow-600"
                     >
                         চাকরির খবর দেখুন <Briefcase size={18} />
                     </Link>
