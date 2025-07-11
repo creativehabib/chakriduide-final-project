@@ -64,6 +64,12 @@ export default function Edit({ settings }: any) {
         }
     }
 
+    const handleSiteLogo = (media: Partial<MediaItem> | null) => {
+        if (media?.id !== undefined) {
+            setData('site_logo', media?.path ?? null);
+        }
+    }
+
     useEffect(() => {
         if (flash?.success) toast.success(flash.success);
         if (flash?.error) toast.error(flash.error);
@@ -91,6 +97,10 @@ export default function Edit({ settings }: any) {
                                 <Textarea value={data.site_description} onChange={e => setData('site_description', e.target.value)} rows={3} />
                             </div>
                             <div className="space-y-1">
+                                <SetFeaturedImage
+                                    onSelect={handleSiteLogo}
+                                    initial={selectedImage}
+                                />
                                 <label className="text-sm font-medium">Site Logo (Image URL or Path)</label>
                                 <Input value={data.site_logo} onChange={e => setData('site_logo', e.target.value)} />
                             </div>
