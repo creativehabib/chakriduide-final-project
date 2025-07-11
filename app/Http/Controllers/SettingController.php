@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Setting;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -15,6 +16,7 @@ class SettingController extends Controller
     {
         $settings = Setting::pluck('value', 'key')->toArray();
         return Inertia::render('admin/settings/edit', [
+            'media' => [],
             'settings' => $settings,
         ]);
     }
@@ -30,16 +32,20 @@ class SettingController extends Controller
 
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:500',
-            'og_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'og_image' => 'nullable|string|max:255',
 
             'header_script' => 'nullable|string',
             'footer_script' => 'nullable|string',
 
             'meta_pixel_id' => 'nullable|string|max:255',
             'google_analytics_id' => 'nullable|string|max:255',
+            'google_adsense_id' => 'nullable|string|max:255',
+            'adsense_auto_enabled' => 'required|boolean',
+            'favicon' => 'nullable|string|max:255',
             'cookie_consent_text' => 'nullable|string|max:1000',
             'allow_registration' => 'required|boolean',
             'allow_indexing' => 'required|boolean',
+            'site_logo' => 'nullable|string|max:255',
 
             'robots_txt' => 'nullable|string|max:5000',
         ]);
@@ -57,7 +63,12 @@ class SettingController extends Controller
         return back()->with('success', 'Settings updated successfully!');
     }
 
-    public function clearCache()
+    /**
+     * Clear all caches.
+     *
+     * @return RedirectResponse
+     */
+    public function clearCache(): RedirectResponse
     {
         Cache::flush();
         return back()->with('success', 'All caches cleared.');

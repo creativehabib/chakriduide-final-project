@@ -19,6 +19,8 @@ class SettingSeeder extends Seeder
             'footer_script' => null,
             'meta_pixel_id' => null,
             'google_analytics_id' => null,
+            'google_adsense_id' => null,
+            'google_adsense_autocode' => null,
             'cookie_consent_text' => 'এই সাইটটি কুকি ব্যবহার করে।',
             'allow_registration' => true,
             'allow_indexing' => true,

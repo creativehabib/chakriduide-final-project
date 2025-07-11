@@ -1,16 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Head, useForm, usePage } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
 import SettingsLayout from '@/layouts/settings/layout';
 import toast from 'react-hot-toast';
-import { FlashProps } from '@/types/globals';
+import { FlashProps, MediaItem } from '@/types/globals';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
+import SetFeaturedImage from '@/components/media-image-select';
 
 const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Settings',
-        href: '/settings',
-    },
+    { title: 'Settings', href: '/settings' },
 ];
 
 export default function Edit({ settings }: any) {
@@ -18,21 +21,27 @@ export default function Edit({ settings }: any) {
         site_name: settings.site_name || '',
         site_email: settings.site_email || '',
         site_description: settings.site_description || '',
-        cache_blog_enabled: settings.cache_blog_enabled || '1',
-        cache_blog_duration: settings.cache_blog_duration || '10',
+        site_logo: settings.site_logo || '',
+        favicon: settings.favicon || '',
+        cache_blog_enabled: String(settings.cache_blog_enabled) === '1',
+        cache_blog_duration: settings.cache_blog_duration || 10,
         meta_title: settings.meta_title || '',
         meta_description: settings.meta_description || '',
+        og_image: settings.og_image || '',
         google_analytics_id: settings.google_analytics_id || '',
+        google_adsense_id: settings.google_adsense_id || '',
+        adsense_auto_enabled: String(settings.adsense_auto_enabled) === '1',
         meta_pixel_id: settings.meta_pixel_id || '',
         header_script: settings.header_script || '',
         footer_script: settings.footer_script || '',
         cookie_consent_text: settings.cookie_consent_text || '',
-        allow_registration: settings.allow_registration ? '1' : '0',
-        allow_indexing: settings.allow_indexing ? '1' : '0',
+        allow_registration: String(settings.allow_registration) === '1',
+        allow_indexing: String(settings.allow_indexing) === '1',
         robots_txt: settings.robots_txt || '',
     });
 
     const { flash } = usePage<{ flash: FlashProps }>().props;
+    const [selectedImage] = useState<MediaItem | undefined>();
 
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -40,10 +49,20 @@ export default function Edit({ settings }: any) {
     };
 
     const clearCache = () => {
-        post(route('admin.settings.clear'), {
-            preserveScroll: true,
-        });
+        post(route('admin.settings.clear'), { preserveScroll: true });
     };
+
+    const handleImageSelect = (media: Partial<MediaItem> | null) => {
+        if (media?.id !== undefined) {
+            setData('og_image', media?.path ?? null);
+        }
+    };
+
+    const handleFaviconSelect = (media: Partial<MediaItem> | null) => {
+        if (media?.id !== undefined) {
+            setData('favicon', media?.path ?? null);
+        }
+    }
 
     useEffect(() => {
         if (flash?.success) toast.success(flash.success);
@@ -54,99 +73,124 @@ export default function Edit({ settings }: any) {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Settings" />
             <SettingsLayout>
-                <div className="p-6 max-w-4xl mx-auto space-y-6">
-                    <h1 className="text-2xl font-bold mb-6">Site & SEO Settings</h1>
-                    <form onSubmit={submit} className="space-y-4">
-                        <div>
-                            <label className="block font-medium">Enable Blog Cache</label>
-                            <select value={data.cache_blog_enabled} onChange={e => setData('cache_blog_enabled', e.target.value)} className="border rounded px-2 py-1">
-                                <option value="1">Enabled</option>
-                                <option value="0">Disabled</option>
-                            </select>
-                        </div>
+                <form onSubmit={submit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Column 1 */}
+                    <Card className="w-full">
+                        <CardContent className="space-y-4">
+                            <h2 className="text-lg font-semibold">General</h2>
+                            <div className="space-y-1">
+                                <label className="text-sm font-medium">Site Name</label>
+                                <Input value={data.site_name} onChange={e => setData('site_name', e.target.value)} />
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-sm font-medium">Site Email</label>
+                                <Input value={data.site_email} onChange={e => setData('site_email', e.target.value)} />
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-sm font-medium">Site Description</label>
+                                <Textarea value={data.site_description} onChange={e => setData('site_description', e.target.value)} rows={3} />
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-sm font-medium">Site Logo (Image URL or Path)</label>
+                                <Input value={data.site_logo} onChange={e => setData('site_logo', e.target.value)} />
+                            </div>
+                            <div className="space-y-1">
+                                <SetFeaturedImage
+                                    onSelect={handleFaviconSelect}
+                                    initial={selectedImage}
+                                />
+                                <label className="text-sm font-medium">Favicon (Image URL or Path)</label>
+                                <Input value={data.favicon} onChange={e => setData('favicon', e.target.value)} />
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <span>Enable Blog Cache</span>
+                                <Switch checked={data.cache_blog_enabled} onCheckedChange={value => setData('cache_blog_enabled', value)} />
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-sm font-medium">Blog Cache Duration (minutes)</label>
+                                <Input type="number" min={1} value={String(data.cache_blog_duration)} onChange={e => setData('cache_blog_duration', Number(e.target.value))} />
+                            </div>
+                        </CardContent>
+                    </Card>
 
-                        <div>
-                            <label className="block font-medium">Blog Cache Duration (minutes)</label>
-                            <input type="number" min="1" value={data.cache_blog_duration} onChange={e => setData('cache_blog_duration', e.target.value)} className="border rounded px-2 py-1 w-full" />
-                        </div>
+                    {/* Column 2 */}
+                    <Card className="w-full">
+                        <CardContent className="space-y-4">
+                            <h2 className="text-lg font-semibold">SEO & Ads</h2>
+                            <div className="space-y-1">
+                                <label className="text-sm font-medium">Meta Title</label>
+                                <Input value={data.meta_title} onChange={e => setData('meta_title', e.target.value)} />
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-sm font-medium">Meta Description</label>
+                                <Textarea value={data.meta_description} onChange={e => setData('meta_description', e.target.value)} rows={3} />
+                            </div>
+                            <div className="space-y-1">
+                                <SetFeaturedImage
+                                    onSelect={handleImageSelect}
+                                    initial={selectedImage}
+                                />
+                                <label className="text-sm font-medium">OG Image (Image URL or Path)</label>
+                                <Input value={data.og_image} onChange={e => setData('og_image', e.target.value)} />
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-sm font-medium">Google Analytics ID</label>
+                                <Input value={data.google_analytics_id} onChange={e => setData('google_analytics_id', e.target.value)} />
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <span>Enable AdSense Auto Ads</span>
+                                <Switch checked={data.adsense_auto_enabled} onCheckedChange={value => setData('adsense_auto_enabled', value)} />
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-sm font-medium">AdSense Publisher ID</label>
+                                <Input value={data.google_adsense_id} onChange={e => setData('google_adsense_id', e.target.value)} />
+                            </div>
+                        </CardContent>
+                    </Card>
 
-                        <div>
-                            <label>Site Name</label>
-                            <input value={data.site_name} onChange={e => setData('site_name', e.target.value)} className="border rounded px-2 py-1 w-full" />
-                        </div>
+                    {/* Full-width fields */}
+                    <Card className="md:col-span-2 w-full">
+                        <CardContent className="space-y-4">
+                            <h2 className="text-lg font-semibold">Advanced Settings</h2>
+                            <div className="space-y-1">
+                                <label className="text-sm font-medium">Meta Pixel ID</label>
+                                <Input value={data.meta_pixel_id} onChange={e => setData('meta_pixel_id', e.target.value)} />
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-sm font-medium">Header Script</label>
+                                <Textarea value={data.header_script} onChange={e => setData('header_script', e.target.value)} rows={3} />
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-sm font-medium">Footer Script</label>
+                                <Textarea value={data.footer_script} onChange={e => setData('footer_script', e.target.value)} rows={3} />
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-sm font-medium">Cookie Consent Text</label>
+                                <Textarea value={data.cookie_consent_text} onChange={e => setData('cookie_consent_text', e.target.value)} rows={2} />
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div className="flex items-center justify-between">
+                                    <span>Allow Registration</span>
+                                    <Switch checked={data.allow_registration} onCheckedChange={value => setData('allow_registration', value)} />
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <span>Allow Indexing</span>
+                                    <Switch checked={data.allow_indexing} onCheckedChange={value => setData('allow_indexing', value)} />
+                                </div>
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-sm font-medium">Custom robots.txt</label>
+                                <Textarea value={data.robots_txt} onChange={e => setData('robots_txt', e.target.value)} rows={6} />
+                            </div>
+                        </CardContent>
+                    </Card>
 
-                        <div>
-                            <label>Site Email</label>
-                            <input value={data.site_email} onChange={e => setData('site_email', e.target.value)} className="border rounded px-2 py-1 w-full" />
-                        </div>
-
-                        <div>
-                            <label>Site Description</label>
-                            <textarea value={data.site_description} onChange={e => setData('site_description', e.target.value)} className="border rounded px-2 py-1 w-full" />
-                        </div>
-
-                        <div>
-                            <label>Meta Title</label>
-                            <input value={data.meta_title} onChange={e => setData('meta_title', e.target.value)} className="border rounded px-2 py-1 w-full" />
-                        </div>
-
-                        <div>
-                            <label>Meta Description</label>
-                            <textarea value={data.meta_description} onChange={e => setData('meta_description', e.target.value)} className="border rounded px-2 py-1 w-full" />
-                        </div>
-
-                        <div>
-                            <label>Google Analytics ID</label>
-                            <input value={data.google_analytics_id} onChange={e => setData('google_analytics_id', e.target.value)} className="border rounded px-2 py-1 w-full" />
-                        </div>
-
-                        <div>
-                            <label>Meta Pixel ID</label>
-                            <input value={data.meta_pixel_id} onChange={e => setData('meta_pixel_id', e.target.value)} className="border rounded px-2 py-1 w-full" />
-                        </div>
-
-                        <div>
-                            <label>Header Script</label>
-                            <textarea value={data.header_script} onChange={e => setData('header_script', e.target.value)} className="border rounded px-2 py-1 w-full" rows={3} />
-                        </div>
-
-                        <div>
-                            <label>Footer Script</label>
-                            <textarea value={data.footer_script} onChange={e => setData('footer_script', e.target.value)} className="border rounded px-2 py-1 w-full" rows={3} />
-                        </div>
-
-                        <div>
-                            <label>Cookie Consent Text</label>
-                            <textarea value={data.cookie_consent_text} onChange={e => setData('cookie_consent_text', e.target.value)} className="border rounded px-2 py-1 w-full" rows={2} />
-                        </div>
-
-                        <div>
-                            <label>Allow Registration</label>
-                            <select value={data.allow_registration} onChange={e => setData('allow_registration', e.target.value)} className="border rounded px-2 py-1">
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label>Allow Indexing</label>
-                            <select value={data.allow_indexing} onChange={e => setData('allow_indexing', e.target.value)} className="border rounded px-2 py-1">
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label>Custom robots.txt</label>
-                            <textarea value={data.robots_txt} onChange={e => setData('robots_txt', e.target.value)} className="border rounded px-2 py-1 w-full" rows={6} />
-                        </div>
-
-                        <div className="flex gap-4">
-                            <button type="submit" disabled={processing} className="bg-blue-600 text-white px-4 py-2 rounded">Save Settings</button>
-                            <button type="button" onClick={clearCache} className="bg-red-600 text-white px-4 py-2 rounded">Clear All Cache</button>
-                        </div>
-                    </form>
-                </div>
+                    {/* Actions */}
+                    <div className="md:col-span-2 flex justify-end gap-4 mt-4">
+                        <Button type={'button'} variant="destructive" onClick={clearCache}>Clear Cache</Button>
+                        <Button type="submit" disabled={processing}>Save Settings</Button>
+                    </div>
+                </form>
             </SettingsLayout>
         </AppLayout>
     );
