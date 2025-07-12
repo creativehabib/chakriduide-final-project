@@ -31,7 +31,7 @@ class SettingController extends Controller
             'cache_blog_duration' => 'required|integer|min:1|max:10080',
 
             'meta_title' => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string|max:500',
+            'site_keywords' => 'nullable|string|max:500',
             'og_image' => 'nullable|string|max:255',
 
             'header_script' => 'nullable|string',

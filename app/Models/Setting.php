@@ -23,4 +23,31 @@ class Setting extends Model
         Cache::forget("setting_{$key}");
         Cache::forever("setting_{$key}", $value);
     }
+
+    public static function selectSettings($key)
+    {
+        $setting = Setting::where('key', $key)->first();
+        if ($setting) {
+            return $setting->value;
+        }
+        return false;
+    }
+
+    public static function updateSettings($key, $data)
+    {
+        $setting = Setting::where('key', $key)->first();
+        if ($setting) {
+            $settings = (array) $setting->value;
+            foreach ($data as $dataKey => $dataValue) {
+                if (array_key_exists($dataKey, $settings)) {
+                    $settings[$dataKey] = $dataValue;
+                }
+            }
+            if (count((array) $setting->value) == count($settings)) {
+                $setting->value = $settings;
+                return $setting->save();
+            }
+        }
+        return false;
+    }
 }

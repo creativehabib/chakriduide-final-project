@@ -26,7 +26,7 @@ export default function Edit({ settings }: any) {
         cache_blog_enabled: String(settings.cache_blog_enabled) === '1',
         cache_blog_duration: settings.cache_blog_duration || 10,
         meta_title: settings.meta_title || '',
-        meta_description: settings.meta_description || '',
+        site_keywords: settings.site_keywords || '',
         og_image: settings.og_image || '',
         google_analytics_id: settings.google_analytics_id || '',
         google_adsense_id: settings.google_adsense_id || '',
@@ -132,8 +132,8 @@ export default function Edit({ settings }: any) {
                                 <Input value={data.meta_title} onChange={e => setData('meta_title', e.target.value)} />
                             </div>
                             <div className="space-y-1">
-                                <label className="text-sm font-medium">Meta Description</label>
-                                <Textarea value={data.meta_description} onChange={e => setData('meta_description', e.target.value)} rows={3} />
+                                <label className="text-sm font-medium">Website keywords (Job, Quiz, news etc)</label>
+                                <Textarea value={data.site_keywords} onChange={e => setData('site_keywords', e.target.value)} rows={3} />
                             </div>
                             <div className="space-y-1">
                                 <SetFeaturedImage
@@ -152,7 +152,7 @@ export default function Edit({ settings }: any) {
                                 <Switch checked={data.adsense_auto_enabled} onCheckedChange={value => setData('adsense_auto_enabled', value)} />
                             </div>
                             <div className="space-y-1">
-                                <label className="text-sm font-medium">AdSense Publisher ID</label>
+                                <label className="text-sm font-medium">AdSense Publisher ID (<small>ca-pub-XXXXXXXXXXXXXXX</small>)</label>
                                 <Input value={data.google_adsense_id} onChange={e => setData('google_adsense_id', e.target.value)} />
                             </div>
                         </CardContent>

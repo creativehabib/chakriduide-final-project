@@ -11,7 +11,9 @@
             $meta = $props['meta'] ?? [];
 
             $title = $meta['meta_title'] ?? Setting::get('meta_title', config('app.name'));
-            $description = $meta['meta_description'] ?? Setting::get('meta_description', 'Default description for the site.');
+            $siteName = Setting::get('site_name', 'চাকরি গাইড');
+            $description = $meta['meta_description'] ?? Setting::get('site_description', 'Default description for the site.');
+            $siteKeywords = Setting::get('site_keywords', 'default, keywords, for, the, site');
             $image = $meta['meta_image'] ?? null;
             $imagePath = $image ? asset('storage/' . $image) : asset('storage/'.Setting::get('og_image', 'default-image.jpg'));
             $url = $meta['url']            ?? url()->current();
@@ -19,19 +21,29 @@
             $adsenseId = Setting::get('google_adsense_id', 'ca-pub-XXXXXXXXXXXXXXX');
             $allowIndex = Setting::get('allow_indexing', true);
             $index = $meta['index'] ?? $allowIndex;
+            if (!$allowIndex) {
+                $index = false;
+            }
         @endphp
 
         {{-- Primary SEO --}}
-        <title inertia>{{ $title ?? config('app.name') }}</title>
+        <title inertia>{{ $title ?? config('app.name') }} | {{config('app.name')}}</title>
         <meta name="description" content="{{ $description }}">
+        <meta name="keywords" content="{{ $siteKeywords }}">
+        <meta name="author" content="চাকরি গাইড টিম">
+        {{-- Meta Tag --}}
         @unless($index)
             <meta name="robots" content="noindex, nofollow">
+        @else
+            <meta name="robots" content="index, follow">
         @endunless
+
+        {{-- Schema.org --}}
         <link rel="canonical" href="{{ $url }}">
 
         {{-- Open Graph / Facebook --}}
         <meta property="og:type"        content="article">
-        <meta property="og:site_name"   content="{{ config('app.name') }}">
+        <meta property="og:site_name"   content="{{ $siteName }}">
         <meta property="og:title"       content="{{ $title }}">
         <meta property="og:description" content="{{ $description }}">
         <meta property="og:image"       content="{{ $imagePath }}">
@@ -39,7 +51,7 @@
 
         {{-- Twitter Card --}}
         <meta name="twitter:card"        content="summary_large_image">
-        <meta name="twitter:site"        content="@YourTwitterHandle">
+        <meta property="twitter:url"     content="{{ $url }}">
         <meta name="twitter:title"       content="{{ $title }}">
         <meta name="twitter:description" content="{{ $description }}">
         <meta name="twitter:image"       content="{{ $imagePath }}">
@@ -98,10 +110,10 @@
         @endif
 
         <!-- Google AdSense -->
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-{{$adsenseId}}" crossorigin="anonymous">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{$adsenseId}}" crossorigin="anonymous">
             window.adsbygoogle = window.adsbygoogle || [];
             adsbygoogle.push({
-                google_ad_client: "ca-pub-{{ $adsenseId }}",
+                google_ad_client: "{{ $adsenseId }}",
                 enable_page_level_ads: true,
                 overlays: {bottom: true}  // bottom banner
             });
