@@ -12,7 +12,7 @@ class SettingSeeder extends Seeder
     {
         $defaults = [
             'meta_title' => 'My Awesome Blog',
-            'meta_description' => 'Default blog description',
+            'site_keywords' => 'Default, blog, description',
             'og_image' => null,
             'favicon' => null,
             'header_script' => null,

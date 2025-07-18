@@ -93,50 +93,51 @@ const HeroComponent = () => {
     return (
         <section
             ref={sectionRef}
-            className={`relative min-h-screen flex flex-col-reverse md:flex-row items-center justify-between
-        px-6 md:px-20 py-16 transition-all duration-700 overflow-hidden
+            className={`relative min-h-screen overflow-hidden
         bg-gradient-to-r from-blue-300 via-purple-200 to-pink-300
         dark:from-slate-900 dark:via-gray-800 dark:to-slate-900
         ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
         >
             {/* Snowfall animation */}
             <Snowfall />
-
-            {/* Text Section */}
-            <div className="relative z-10 text-center md:text-left max-w-xl">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 leading-tight tracking-tight">
+            <div className="container mx-auto flex flex-col-reverse md:flex-row items-center justify-between
+        px-6 py-16 transition-all duration-700">
+                {/* Text Section */}
+                <div className="relative z-10 text-center md:text-left max-w-xl">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 sm:mt-4 leading-tight tracking-tight">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-purple-600 to-pink-500 dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400">
             {typedText}
           </span>
-                    <span className="ml-1 border-r-2 border-blue-900 dark:border-white animate-pulse" />
-                </h1>
-                <p className="text-lg text-gray-700 dark:text-gray-300 mb-8">
-                    চাকরির খোঁজ, প্রস্তুতি কুইজ, এবং অনুশীলন — সব এক প্ল্যাটফর্মে একসাথে।
-                </p>
-                <div className="flex justify-center md:justify-start gap-4 flex-wrap">
-                    <Link
-                        href="/quiz"
-                        className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full text-base font-semibold shadow-lg transition duration-300 hover:scale-105 hover:ring-2 hover:ring-green-400"
-                    >
-                        MCQ অনুশীলন করুন <ArrowRight size={18} />
-                    </Link>
-                    <Link
-                        href="/jobs"
-                        className="inline-flex items-center gap-2 bg-yellow-600 hover:bg-yellow-400 text-white px-6 py-3 rounded-full text-base font-semibold shadow-lg transition duration-300 hover:scale-105 hover:ring-2 hover:ring-yellow-600"
-                    >
-                        চাকরির খবর দেখুন <Briefcase size={18} />
-                    </Link>
+                        <span className="ml-1 border-r-2 border-blue-900 dark:border-white animate-pulse" />
+                    </h1>
+                    <p className="text-lg text-gray-700 dark:text-gray-300 mb-8">
+                        চাকরির খোঁজ, প্রস্তুতি কুইজ, এবং অনুশীলন — সব এক প্ল্যাটফর্মে একসাথে।
+                    </p>
+                    <div className="flex justify-center md:justify-start gap-4 flex-wrap">
+                        <Link
+                            href="/quiz"
+                            className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full text-base font-semibold shadow-lg transition duration-300 hover:scale-105 hover:ring-2 hover:ring-green-400"
+                        >
+                            MCQ অনুশীলন করুন <ArrowRight size={18} />
+                        </Link>
+                        <Link
+                            href="/jobs"
+                            className="inline-flex items-center gap-2 bg-yellow-600 hover:bg-yellow-400 text-white px-6 py-3 rounded-full text-base font-semibold shadow-lg transition duration-300 hover:scale-105 hover:ring-2 hover:ring-yellow-600"
+                        >
+                            চাকরির খবর দেখুন <Briefcase size={18} />
+                        </Link>
+                    </div>
                 </div>
-            </div>
 
-            {/* Image Section */}
-            <div className="relative z-10 mt-10 md:mt-0 w-full md:w-1/2 max-w-md">
-                <img
-                    src="https://img.freepik.com/free-vector/man-search-hiring-job-online-from-laptop_1150-52728.jpg?semt=ais_hybrid&w=740"
-                    alt="Job Search Illustration"
-                    className="rounded-xl shadow-2xl w-full h-auto object-contain hover:scale-105 transition duration-500 dark:brightness-90 dark:contrast-110"
-                    loading="lazy"
-                />
+                {/* Image Section */}
+                <div className="relative z-10 mt-10 md:mt-0 w-full md:w-1/2 max-w-md">
+                    <img
+                        src="https://img.freepik.com/free-vector/man-search-hiring-job-online-from-laptop_1150-52728.jpg?semt=ais_hybrid&w=740"
+                        alt="Job Search Illustration"
+                        className="rounded-xl shadow-2xl w-full h-auto object-contain hover:scale-105 transition duration-500 dark:brightness-90 dark:contrast-110"
+                        loading="lazy"
+                    />
+                </div>
             </div>
         </section>
     );

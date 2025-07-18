@@ -4,7 +4,6 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
         @php
             // Retrieve Inertia meta props or defaults
             $props = $page['props'] ?? [];
@@ -16,7 +15,7 @@
             $siteKeywords = Setting::get('site_keywords', 'default, keywords, for, the, site');
             $image = $meta['meta_image'] ?? null;
             $imagePath = $image ? asset('storage/' . $image) : asset('storage/'.Setting::get('og_image', 'default-image.jpg'));
-            $url = $meta['url']            ?? url()->current();
+            $url = $meta['url'] ?? url()->current();
             $favicon = Setting::get('favicon') ? asset('storage/' . Setting::get('favicon')) : asset('favicon.ico');
             $adsenseId = Setting::get('google_adsense_id', 'ca-pub-XXXXXXXXXXXXXXX');
             $allowIndex = Setting::get('allow_indexing', true);

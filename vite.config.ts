@@ -6,6 +6,9 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
     assetsInclude: ['**/*.woff', '**/*.woff2'],
+    build: {
+        manifest: true,
+    },
     plugins: [
         laravel({
             input: ['resources/css/app.css','resources/css/fonts.css', 'resources/js/app.tsx'],

@@ -6,6 +6,11 @@ use App\Models\Media;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @method getMetaInt(string $string)
+ * @method getMeta(string $string)
+ * @property mixed $index
+ */
 class MetaResource extends JsonResource
 {
     public static $wrap = null; // Disable the "data" wrapper

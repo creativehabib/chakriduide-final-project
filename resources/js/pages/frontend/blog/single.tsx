@@ -27,12 +27,12 @@ const Single = () => {
     return (
         <>
             <Head>
-                <title>{meta?.meta_title || blog.name}</title>
+                <title>{blog.name || meta?.meta_title }</title>
                 <meta name="description" content={meta?.meta_description || 'Default description'} />
                 <meta property="og:title" content={meta?.meta_title} />
                 <meta property="og:description" content={meta?.meta_description} />
                 <meta name="twitter:image" content={meta?.meta_image ? getImageUrl(meta?.meta_image, 400, 350, meta?.name || 'No Image') : ''} />
-                <meta property="og:url" content={window.location.href} />
+                <meta property="og:url" content={blog.slug} />
                 <meta property="og:type" content="article" />
 
                 <meta name="twitter:card" content="summary_large_image" />
@@ -48,7 +48,7 @@ const Single = () => {
                 {/* Main Blog */}
                 <div className="content lg:col-span-8 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-6 rounded shadow-md">
                     {blog.media && (
-                        <img src={getImageUrl(blog.media.path, 800, 400, blog.media.name || 'No Image')} alt={blog.media.name} className="w-full rounded mb-4" />
+                        <img src={getImageUrl(blog.media.path, 800, 400, blog.media.name || 'No Image')} alt={blog.media.name} className="w-full rounded mb-4" loading="lazy" />
                     )}
                     <h1 className="font-bold text-3xl mb-4 text-gray-900 dark:text-white">{blog.name}</h1>
 
@@ -84,7 +84,7 @@ const Single = () => {
                                             <Link href={`/${post.slug}`} className="group block h-full">
                                                 <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 h-full flex flex-col">
                                                     {post.media?.path && (
-                                                        <img src={getImageUrl(post.media.path, 400, 250)} alt={post.media.name || post.name} className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
+                                                        <img src={getImageUrl(post.media.path, 400, 250)} alt={post.media.name || post.name} className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy"/>
                                                     )}
                                                     <div className="p-4 flex flex-col flex-grow">
                                                         {post.category?.name && (

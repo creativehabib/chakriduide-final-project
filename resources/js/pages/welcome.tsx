@@ -69,13 +69,12 @@ export default function Homepage() {
 
             <MainNav/>
 
-
             {/* Hero Section */}
             <HerroComponent/>
 
             {/* Job Circular Section */}
             <section className="py-16 bg-white dark:bg-gray-900">
-                <div className="container mx-auto px-4 max-w-7xl">
+                <div className="container mx-auto px-6">
                     <h3 className="text-3xl font-shurjo font-bold mb-10 text-gray-900 dark:text-white text-center md:text-left">
                         সাম্প্রতিক চাকরির খবর
                     </h3>
@@ -107,7 +106,7 @@ export default function Homepage() {
 
             {/* Quiz Section */}
             <section className="py-16 bg-gray-50 dark:bg-gray-950 transition-colors duration-500">
-                <div className="container mx-auto px-4 max-w-7xl">
+                <div className="container mx-auto px-6">
                     <h3 className="text-3xl font-bold mb-10 text-gray-900 dark:text-white text-center md:text-left">
                         বিষয়ভিত্তিক কুইজ অনুশীলন
                     </h3>
@@ -129,7 +128,7 @@ export default function Homepage() {
 
             {/* Guide/Blog Section */}
             <section className="py-12 bg-gray-100 dark:bg-gray-900 transition-colors duration-500">
-                <div className="container mx-auto px-4 max-w-7xl">
+                <div className="container mx-auto px-6">
                     <h3 className="text-3xl font-extrabold mb-10 text-gray-900 dark:text-white text-center md:text-left">
                         প্রস্তুতি ও ক্যারিয়ার গাইড
                     </h3>
