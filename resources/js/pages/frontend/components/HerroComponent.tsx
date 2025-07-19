@@ -65,7 +65,7 @@ const Snowfall = () => {
 
 const HeroComponent = () => {
     const [typedText, setTypedText] = useState('');
-    const fullText = ' চাকরি প্রার্থীদের জন্য সঠিক গাইডলাইন';
+    const fullText = ' ঢাকরি প্রার্থীদের জন্য সঠিক গাইডলাইন';
     const index = useRef(0);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [visible, setVisible] = useState(false);
@@ -91,17 +91,15 @@ const HeroComponent = () => {
     }, []);
 
     return (
-        <section
-            ref={sectionRef}
-            className={`relative min-h-screen overflow-hidden
+        <section ref={sectionRef} className={`relative overflow-hidden
         bg-gradient-to-r from-blue-300 via-purple-200 to-pink-300
         dark:from-slate-900 dark:via-gray-800 dark:to-slate-900
         ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
         >
             {/* Snowfall animation */}
             <Snowfall />
-            <div className="container mx-auto flex flex-col-reverse md:flex-row items-center justify-between
-        px-6 py-16 transition-all duration-700">
+            <div className="container mx-auto flex flex-col-reverse md:flex-row min-h-screen items-center justify-between
+        px-4 py-16 transition-all duration-700">
                 {/* Text Section */}
                 <div className="relative z-10 text-center md:text-left max-w-xl">
                     <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 sm:mt-4 leading-tight tracking-tight">
