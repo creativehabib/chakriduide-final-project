@@ -102,7 +102,7 @@ const HeroComponent = () => {
         >
             <Snowfall />
 
-            <div className="container mx-auto px-4 py-8 md:py-16 flex flex-col-reverse md:flex-row items-center gap-8 md:min-h-screen">
+            <div className="container mx-auto px-4 py-8 md:py-16 flex flex-col-reverse md:flex-row items-center gap-4 md:min-h-screen">
             {/* Text Section */}
                 <div className="w-full md:w-1/2 text-center md:text-left z-10">
                     <h1 className="text-2xl sm:text-3xl md:text-5xl font-extrabold mb-4 leading-tight tracking-tight">
