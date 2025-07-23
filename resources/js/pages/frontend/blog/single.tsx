@@ -50,7 +50,7 @@ const Single = () => {
                     {blog.media && (
                         <img src={getImageUrl(blog.media.path, 800, 400, blog.media.name || 'No Image')} alt={blog.media.name} className="w-full rounded mb-4" loading="lazy" />
                     )}
-                    <h1 className="font-bold text-3xl mb-4 text-gray-900 dark:text-white">{blog.name}</h1>
+                    <h1 className="font-bold text-3xl mb-4 text-gray-900 dark:text-gray-200">{blog.name}</h1>
 
                     <div className="text-sm text-gray-700 dark:text-gray-300 mb-4">
                         <span>লেখক: {blog.user?.name || 'অজানা'}</span> | <span>প্রকাশিত: {new Date(blog.created_at).toLocaleDateString('bn-BD')}</span> {blog.category && <span> | বিভাগ: {blog.category.name}</span>}
