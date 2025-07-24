@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -20,6 +21,9 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
+        if (!Setting::get('allow_registration')) {
+            abort(403, 'নতুন রেজিস্ট্রেশন বর্তমানে বন্ধ আছে।');
+        }
         return Inertia::render('auth/register');
     }
 
