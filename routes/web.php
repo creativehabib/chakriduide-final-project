@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\SettingController;
-use App\Http\Requests\MediaController;
+use App\Http\Controllers\MediaController;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
 
 
 Route::post('/admin/clear-cache', function () {

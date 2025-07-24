@@ -198,7 +198,7 @@ export default function Edit({ settings }: any) {
                     {/* Actions */}
                     <div className="md:col-span-2 flex justify-end gap-4 mt-4">
                         <Button type={'button'} variant="destructive" onClick={clearCache}>Clear Cache</Button>
-                        <Button type={'submit'} disabled={processing}>Save Settings</Button>
+                        <Button type="submit" disabled={processing}>Save Settings</Button>
                     </div>
                 </form>
             </SettingsLayout>
