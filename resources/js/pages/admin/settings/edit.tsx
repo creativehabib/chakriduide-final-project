@@ -72,8 +72,6 @@ export default function Edit({ settings }: any) {
     const generateSitemap = () => {
         router.post(route('admin.settings.generate-sitemap'), {}, {
             preserveScroll: true,
-            onSuccess: () => toast.success('Sitemap generated successfully!'),
-            onError: () => toast.error('Sitemap generation failed!'),
         });
     };
 

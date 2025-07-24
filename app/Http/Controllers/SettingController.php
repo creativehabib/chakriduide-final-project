@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Setting;
+use http\Env\Response;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,7 +15,7 @@ use Spatie\Sitemap\SitemapGenerator;
 
 class SettingController extends Controller
 {
-    public function index(): \Illuminate\Foundation\Application
+    public function index(): Response
     {
         $posts = Cache::remember('sitemap-posts', now()->addMinutes(60), function () {
             return Blog::where('status', 'published')->latest()->get();
@@ -114,7 +116,6 @@ class SettingController extends Controller
         try {
             SitemapGenerator::create(config('app.url'))
                 ->writeToFile(public_path('sitemap.xml'));
-
             return back()->with('success', 'Sitemap generated successfully!');
         } catch (\Exception $e) {
             return back()->with('error', 'Failed to generate sitemap: ' . $e->getMessage());
