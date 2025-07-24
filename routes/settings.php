@@ -8,7 +8,7 @@ use Inertia\Inertia;
 
 Route::middleware('auth')->group(function () {
     Route::get('settings/general', [SettingController::class, 'edit'])->name('admin.settings.edit');
-    Route::post('settings', [SettingController::class, 'update'])->name('admin.settings.update');
+    Route::post('settings/general', [SettingController::class, 'update'])->name('admin.settings.update');
     Route::post('settings/clear', [SettingController::class, 'clearCache'])->name('admin.settings.clear');
 
 
