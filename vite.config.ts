@@ -8,7 +8,7 @@ export default defineConfig({
     assetsInclude: ['**/*.woff', '**/*.woff2'],
     build: {
         manifest: true,
-        outDir: 'public/build', // ✅ Laravel expects this path
+        outDir: 'public/build',
         emptyOutDir: true,
     },
     plugins: [
