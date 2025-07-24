@@ -147,7 +147,7 @@ export const sidebarData: SidebarData = {
                     items: [
                         {
                             title: 'General',
-                            url: '/admin/settings',
+                            url: '/settings/general',
                             icon: IconSettings,
                         },
                         {
