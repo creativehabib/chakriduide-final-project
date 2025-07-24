@@ -32,6 +32,14 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/slug-check', [SettingController::class, 'check'])->name('slug.check');
 
 });
+
+// sitemap route
+Route::get('/sitemap.xml', [SettingController::class, 'index']);
+
+Route::post('/admin/settings/generate-sitemap', [\App\Http\Controllers\SettingController::class, 'generateSitemap'])
+    ->name('admin.settings.generate-sitemap');
+
+
 require __DIR__.'/install.php';
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

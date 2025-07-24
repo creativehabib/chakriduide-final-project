@@ -9,9 +9,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Cache;
+use Spatie\Sitemap\SitemapGenerator;
 
 class SettingController extends Controller
 {
+    public function index(): \Illuminate\Foundation\Application
+    {
+        $posts = Cache::remember('sitemap-posts', now()->addMinutes(60), function () {
+            return Blog::where('status', 'published')->latest()->get();
+        });
+
+        $content = view('sitemap.xml', compact('posts'))->render();
+
+        return response($content, 200)->header('Content-Type', 'application/xml');
+    }
     public function edit()
     {
         $settings = Setting::pluck('value', 'key')->toArray();
@@ -96,5 +107,17 @@ class SettingController extends Controller
         $exists = $query->exists();
 
         return response()->json(['available' => !$exists]);
+    }
+
+    public function generateSitemap()
+    {
+        try {
+            SitemapGenerator::create(config('app.url'))
+                ->writeToFile(public_path('sitemap.xml'));
+
+            return back()->with('success', 'Sitemap generated successfully!');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Failed to generate sitemap: ' . $e->getMessage());
+        }
     }
 }

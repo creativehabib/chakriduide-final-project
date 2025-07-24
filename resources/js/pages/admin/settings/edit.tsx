@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, router, useForm, usePage } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
 import SettingsLayout from '@/layouts/settings/layout';
@@ -69,6 +69,14 @@ export default function Edit({ settings }: any) {
             setData('site_logo', media?.path ?? null);
         }
     }
+    const generateSitemap = () => {
+        router.post(route('admin.settings.generate-sitemap'), {}, {
+            preserveScroll: true,
+            onSuccess: () => toast.success('Sitemap generated successfully!'),
+            onError: () => toast.error('Sitemap generation failed!'),
+        });
+    };
+
 
     useEffect(() => {
         if (flash?.success) toast.success(flash.success);
@@ -197,6 +205,9 @@ export default function Edit({ settings }: any) {
 
                     {/* Actions */}
                     <div className="md:col-span-2 flex justify-end gap-4 mt-4">
+                        <Button type="button" onClick={generateSitemap} variant="outline">
+                            Generate Sitemap
+                        </Button>
                         <Button type={'button'} variant="destructive" onClick={clearCache}>Clear Cache</Button>
                         <Button type="submit" disabled={processing}>Save Settings</Button>
                     </div>
