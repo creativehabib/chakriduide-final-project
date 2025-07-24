@@ -8,10 +8,16 @@ export default defineConfig({
     assetsInclude: ['**/*.woff', '**/*.woff2'],
     build: {
         manifest: true,
+        outDir: 'public/build', // ✅ Laravel expects this path
+        emptyOutDir: true,
     },
     plugins: [
         laravel({
-            input: ['resources/css/app.css','resources/css/fonts.css', 'resources/js/app.tsx'],
+            input: [
+                'resources/css/app.css',
+                'resources/css/fonts.css',
+                'resources/js/app.tsx'
+            ],
             ssr: 'resources/js/ssr.tsx',
             refresh: true,
         }),
