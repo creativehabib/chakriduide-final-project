@@ -106,7 +106,7 @@ class MediaController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-    public function destroy($id): JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         try {
             $media = Media::findOrFail($id);
@@ -132,7 +132,7 @@ class MediaController extends Controller
      * @return JsonResponse
      */
 
-    public function updateImage(Request $request, $id): JsonResponse
+    public function updateImage(Request $request, int $id): JsonResponse
     {
         try {
             $media = Media::findOrFail($id);
