@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:public/build/assets/inertia-pagination-CHTPUSgH.js
 import{c as p}from"./createLucideIcon-Q1VNZ2Vx.js";import{j as e,$ as f}from"./app-BFIVuOgJ.js";import{c as i,B as d}from"./button-Bd_S6xzs.js";/**
-========
-import{c as p}from"./createLucideIcon-D6gmIK7j.js";import{j as e,$ as f}from"./app-DkFxymXH.js";import{c as i,B as d}from"./button-C4ITtZ-V.js";/**
->>>>>>>> 69fc61a84ed3467e00352157ddf84b9d9587903e:public/build/assets/inertia-pagination-B7RZHOok.js
  * @license lucide-react v0.475.0 - ISC
  *
  * This source code is licensed under the ISC license.

@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:public/build/assets/Snowfall-DoXYJmmF.js
 import{j as t}from"./app-BFIVuOgJ.js";import"./app-DSIrS37V.js";const m=()=>t.jsxs(t.Fragment,{children:[t.jsx("style",{children:`
-========
-import{j as t}from"./app-DkFxymXH.js";const l=()=>t.jsxs(t.Fragment,{children:[t.jsx("style",{children:`
->>>>>>>> 69fc61a84ed3467e00352157ddf84b9d9587903e:public/build/assets/Snowfall-BESPMNK3.js
         .snowfall {
           pointer-events: none;
           position: absolute;
@@ -32,4 +28,4 @@ import{j as t}from"./app-DkFxymXH.js";const l=()=>t.jsxs(t.Fragment,{children:[t
             opacity: 0;
           }
         }
-      `}),t.jsx("div",{className:"snowfall",children:Array.from({length:50}).map((s,n)=>{const a=Math.random()*6+2,o=Math.random()*100,e=Math.random()*10+5,i=Math.random()*15;return t.jsx("div",{className:"snowflake",style:{width:a,height:a,left:`${o}vw`,animationDuration:`${e}s`,animationDelay:`${i}s`}},n)})})]});export{l as default};
+      `}),t.jsx("div",{className:"snowfall",children:Array.from({length:50}).map((s,n)=>{const a=Math.random()*6+2,o=Math.random()*100,i=Math.random()*10+5,e=Math.random()*15;return t.jsx("div",{className:"snowflake",style:{width:a,height:a,left:`${o}vw`,animationDuration:`${i}s`,animationDelay:`${e}s`}},n)})})]});export{m as default};

@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:public/build/assets/delete-dialog-wLxb0jnI.js
 import{c as a}from"./createLucideIcon-Q1VNZ2Vx.js";import{j as e}from"./app-BFIVuOgJ.js";import{D as t,a as l,b as d,c as h,g as p,d as m}from"./dialog-B_d93Agj.js";import{B as r}from"./button-Bd_S6xzs.js";/**
-========
-import{c as a}from"./createLucideIcon-D6gmIK7j.js";import{j as e}from"./app-DkFxymXH.js";import{D as t,b as l,g as d,c as h,d as p,e as m}from"./dialog-BNB4g03V.js";import{B as r}from"./button-C4ITtZ-V.js";/**
->>>>>>>> 69fc61a84ed3467e00352157ddf84b9d9587903e:public/build/assets/delete-dialog-BdFoebYy.js
  * @license lucide-react v0.475.0 - ISC
  *
  * This source code is licensed under the ISC license.
