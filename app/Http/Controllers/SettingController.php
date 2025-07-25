@@ -8,20 +8,22 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Cache;
+use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Sitemap\Tags\Url;
 
 class SettingController extends Controller
 {
-    public function index(): Response
+    public function index()
     {
-        $posts = Cache::remember('sitemap-posts', now()->addMinutes(60), function () {
-            return Blog::where('status', 'published')->latest()->get();
-        });
+        $posts = Blog::where('status', 'published')->latest()->get();
 
-        $content = view('sitemap.xml', compact('posts'))->render();
+        $content = view('sitemap', compact('posts'))->render();
 
         return response($content, 200)->header('Content-Type', 'application/xml');
     }
@@ -59,6 +61,9 @@ class SettingController extends Controller
             'allow_registration' => 'required|boolean',
             'allow_indexing' => 'required|boolean',
             'site_logo' => 'nullable|string|max:255',
+            'sitemap_include_posts' => 'nullable|boolean',
+            'sitemap_include_categories' => 'nullable|boolean',
+            'sitemap_include_pages' => 'nullable|boolean',
 
             'robots_txt' => 'nullable|string|max:5000',
         ]);
@@ -113,12 +118,49 @@ class SettingController extends Controller
 
     public function generateSitemap()
     {
-        try {
-            SitemapGenerator::create(config('app.url'))
-                ->writeToFile(public_path('sitemap.xml'));
-            return back()->with('success', 'Sitemap generated successfully!');
-        } catch (\Exception $e) {
-            return back()->with('error', 'Failed to generate sitemap: ' . $e->getMessage());
+        $sitemap = Sitemap::create();
+
+        if(setting('sitemap_include_posts')) {
+            Blog::published()->get()->each(function ($post) use ($sitemap) {
+                $sitemap->add(
+                    Url::create($post->slug)
+                        ->setLastModificationDate($post->updated_at)
+                        ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
+                        ->setPriority(0.6)
+                );
+            });
         }
+
+//        if(setting('sitemap_include_pages')) {
+//            Page::published()->get()->each(function ($post) use ($sitemap) {
+//                $sitemap->add(
+//                    Url::create(route('page.show', $post->slug))
+//                        ->setLastModificationDate($post->updated_at)
+//                        ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
+//                        ->setPriority(0.6)
+//                );
+//            });
+//        }
+//
+//        if (setting('sitemap_include_categories')) {
+//            Category::all()->each(function ($category) use ($sitemap) {
+//                $sitemap->add(Url::create(route('categories.show', $category->slug)));
+//            });
+//        }
+
+        // Save to public/sitemap.xml
+        $sitemap->writeToFile(public_path('sitemap.xml'));
+
+        return back()->with('success', 'Sitemap generated successfully!');
+    }
+    private function url($loc, $lastmod)
+    {
+        return "
+        <url>
+            <loc>{$loc}</loc>
+            <lastmod>{$lastmod->toAtomString()}</lastmod>
+            <changefreq>daily</changefreq>
+            <priority>0.8</priority>
+        </url>";
     }
 }

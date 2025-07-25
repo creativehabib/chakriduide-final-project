@@ -5,13 +5,18 @@ namespace App\Models;
 use App\Traits\HasMeta;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 
 class Blog extends Model
 {
     use HasMeta;
 
     protected $guarded = ['id'];
+
+    public function scopePublished(Builder $query): Builder
+    {
+        return $query->where('status', 'published');
+    }
 
     public function category(): BelongsTo
     {
