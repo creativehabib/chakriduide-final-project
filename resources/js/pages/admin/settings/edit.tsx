@@ -41,6 +41,9 @@ export default function Edit({ settings }: any) {
         sitemap_include_posts: String(settings.sitemap_include_posts) === '1',
         sitemap_include_pages: String(settings.sitemap_include_pages) === '1',
         sitemap_include_categories: String(settings.sitemap_include_categories) === '1',
+        enable_sitemap: String(settings.enable_sitemap) === '1',
+        enable_indexNow: String(settings.enable_indexNow) === '1',
+        sitemap_items_per_page: settings.sitemap_items_per_page || ''
     });
 
     const { flash } = usePage<{ flash: FlashProps }>().props;
@@ -214,15 +217,33 @@ export default function Edit({ settings }: any) {
                                     <span>Include Categories</span>
                                     <Switch checked={data.sitemap_include_categories} onCheckedChange={value => setData('sitemap_include_categories', value)} />
                                 </div>
-                                <div className="pt-4">
-                                    <Button type="button" onClick={generateSitemap}>Generate Sitemap</Button>
+                            </div>
+
+                            <div className="space-y-4">
+                                <h2 className="text-lg font-semibold">Sitemap Settings</h2>
+
+                                <div className="flex items-center justify-between">
+                                    <span>Enable Sitemap?</span>
+                                    <Switch checked={data.enable_sitemap} onCheckedChange={val => setData('enable_sitemap', val)} />
+                                </div>
+
+                                <div className="flex items-center justify-between">
+                                    <span>Enable IndexNow?</span>
+                                    <Switch checked={data.enable_indexNow} onCheckedChange={val => setData('enable_indexNow', val)} />
+                                </div>
+
+                                <div>
+                                    <label className="text-sm font-medium">Sitemap items per page</label>
+                                    <Input type="number" value={data.sitemap_items_per_page} onChange={e => setData('sitemap_items_per_page', Number(e.target.value))} />
                                 </div>
                             </div>
+
                         </CardContent>
                     </Card>
 
                     {/* Actions */}
                     <div className="md:col-span-2 flex justify-end gap-4 mt-4">
+                        <Button type="button" onClick={generateSitemap}>Generate Sitemap</Button>
                         <Button type={'button'} variant="destructive" onClick={clearCache}>Clear Cache</Button>
                         <Button type="submit" disabled={processing}>Save Settings</Button>
                     </div>

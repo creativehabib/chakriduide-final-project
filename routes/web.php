@@ -38,7 +38,9 @@ Route::get('/sitemap.xml', [SettingController::class, 'index']);
 
 
 // routes/web.php
-Route::post('/admin/settings/generate-sitemap', [SettingController::class, 'generateSitemap'])->name('admin.settings.generate-sitemap');
+Route::post('/admin/settings/generate-sitemap', [SettingController::class, 'generateSitemap'])
+    ->name('admin.settings.generate-sitemap')
+    ->middleware(['web']);
 
 
 

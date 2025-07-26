@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Inertia\Inertia;
@@ -66,6 +67,9 @@ class SettingController extends Controller
             'sitemap_include_pages' => 'nullable|boolean',
 
             'robots_txt' => 'nullable|string|max:5000',
+            'enable_sitemap' => 'nullable|boolean',
+            'enable_indexNow' => 'nullable|boolean',
+            'sitemap_items_per_page' => 'nullable|integer',
         ]);
 
         foreach ($request->except(['_token', '_method']) as $key => $value) {
@@ -116,51 +120,20 @@ class SettingController extends Controller
         return response()->json(['available' => !$exists]);
     }
 
-    public function generateSitemap()
+    /**
+     * @return RedirectResponse
+     */
+    public function generateSitemap(): RedirectResponse
     {
-        $sitemap = Sitemap::create();
-
-        if(setting('sitemap_include_posts')) {
-            Blog::published()->get()->each(function ($post) use ($sitemap) {
-                $sitemap->add(
-                    Url::create($post->slug)
-                        ->setLastModificationDate($post->updated_at)
-                        ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
-                        ->setPriority(0.6)
-                );
-            });
-        }
-
-//        if(setting('sitemap_include_pages')) {
-//            Page::published()->get()->each(function ($post) use ($sitemap) {
-//                $sitemap->add(
-//                    Url::create(route('page.show', $post->slug))
-//                        ->setLastModificationDate($post->updated_at)
-//                        ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
-//                        ->setPriority(0.6)
-//                );
-//            });
-//        }
-//
-//        if (setting('sitemap_include_categories')) {
-//            Category::all()->each(function ($category) use ($sitemap) {
-//                $sitemap->add(Url::create(route('categories.show', $category->slug)));
-//            });
-//        }
-
-        // Save to public/sitemap.xml
-        $sitemap->writeToFile(public_path('sitemap.xml'));
-
+        Artisan::call('sitemap:generate');
         return back()->with('success', 'Sitemap generated successfully!');
     }
-    private function url($loc, $lastmod)
+
+    public function sitemap()
     {
-        return "
-        <url>
-            <loc>{$loc}</loc>
-            <lastmod>{$lastmod->toAtomString()}</lastmod>
-            <changefreq>daily</changefreq>
-            <priority>0.8</priority>
-        </url>";
+        $settings = Setting::pluck('value', 'key')->toArray();
+        return Inertia::render('admin/settings/sitemap',[
+            'settings' => $settings,
+        ]);
     }
 }

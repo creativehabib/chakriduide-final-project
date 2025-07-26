@@ -26,4 +26,6 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('settings/appearance');
     })->name('appearance');
 
+    Route::get('settings/sitemap', [SettingController::class, 'sitemap'])->name('sitemap');
+
 });

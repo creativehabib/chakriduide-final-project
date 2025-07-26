@@ -7,8 +7,8 @@ import { defineConfig } from 'vite';
 export default defineConfig({
     assetsInclude: ['**/*.woff', '**/*.woff2'],
     build: {
-        manifest: true,
         outDir: 'public/build',
+        manifest: true,
         emptyOutDir: true,
     },
     plugins: [

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Repositories\BlogRepository;
+use Illuminate\Support\Facades\Schedule;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,6 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Schedule::command('sitemap:generate')->dailyAt('02:00');
     }
 }
