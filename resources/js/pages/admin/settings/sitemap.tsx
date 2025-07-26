@@ -1,104 +1,145 @@
-import React, { useEffect } from 'react';
+'use client';
+
+import React, { useState } from 'react';
+import { Head, useForm } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
-import type { BreadcrumbItem } from '@/types';
-import { Head, router, useForm, usePage } from '@inertiajs/react';
 import SettingsLayout from '@/layouts/settings/layout';
-import { Card, CardContent } from '@/components/ui/card';
-import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
-import { FlashProps } from '@/types/globals';
-import toast from 'react-hot-toast';
+import { SaveIcon } from 'lucide-react';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Sitemap', href: '/settings/sitemap' },
-];
-
-const Sitemap = ({settings} : any) => {
+const SitemapSettings = ({ settings }: any) => {
     const { data, setData, post, processing } = useForm({
-        sitemap_include_posts: String(settings.sitemap_include_posts) === '1',
-        sitemap_include_pages: String(settings.sitemap_include_pages) === '1',
-        sitemap_include_categories: String(settings.sitemap_include_categories) === '1',
         enable_sitemap: String(settings.enable_sitemap) === '1',
         enable_indexNow: String(settings.enable_indexNow) === '1',
         sitemap_items_per_page: settings.sitemap_items_per_page || ''
-    })
-    const { flash } = usePage<{ flash: FlashProps }>().props;
-    const submit = (e: React.FormEvent) => {
-        e.preventDefault();
-        post(route('admin.settings.update'));
-        console.log(data)
-    };
-    const generateSitemap = () => {
-        router.post(route('admin.settings.generate-sitemap'), {}, {
-            preserveScroll: true,
-            onSuccess: () => {
-                toast.success('Sitemap generated successfully!');
-            },
-        });
+    });
+
+    const [enabled, setEnabled] = useState(settings.enable_sitemap);
+    const [indexNowEnabled, setIndexNowEnabled] = useState(settings.enable_indexNow);
+
+    const handleToggle = () => {
+        const newState = !enabled;
+        setEnabled(newState);
     };
 
-    useEffect(() => {
-        if (flash?.success) toast.success(flash.success);
-        if (flash?.error) toast.error(flash.error);
-    }, [flash]);
     return (
-        <>
-            <AppLayout breadcrumbs={breadcrumbs}>
-                <Head title={'Sitemap'}/>
-                <SettingsLayout>
-                    <form onSubmit={submit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <Card>
-                            <CardContent>
-                                <div className="space-y-1">
-                                    <h2 className="text-lg font-semibold">Sitemap Settings</h2>
-                                    <div className="flex items-center justify-between">
-                                        <span>Include Posts</span>
-                                        <Switch checked={data.sitemap_include_posts} onCheckedChange={value => setData('sitemap_include_posts', value)} />
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <span>Include Pages</span>
-                                        <Switch checked={data.sitemap_include_pages} onCheckedChange={value => setData('sitemap_include_pages', value)} />
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <span>Include Categories</span>
-                                        <Switch checked={data.sitemap_include_categories} onCheckedChange={value => setData('sitemap_include_categories', value)} />
-                                    </div>
-                                </div>
-
-                                <div className="space-y-4">
-                                    <h2 className="text-lg font-semibold">Sitemap Settings</h2>
-
-                                    <div className="flex items-center justify-between">
-                                        <span>Enable Sitemap?</span>
-                                        <Switch checked={data.enable_sitemap} onCheckedChange={val => setData('enable_sitemap', val)} />
-                                    </div>
-
-                                    <div className="flex items-center justify-between">
-                                        <span>Enable IndexNow?</span>
-                                        <Switch checked={data.enable_indexNow} onCheckedChange={val => setData('enable_indexNow', val)} />
-                                    </div>
-
-                                    <div>
-                                        <label className="text-sm font-medium">Sitemap items per page</label>
-                                        <Input type="number" value={data.sitemap_items_per_page} onChange={e => setData('sitemap_items_per_page', Number(e.target.value))} />
-                                    </div>
-
-                                    <div className="pt-4">
-                                        <Button type={'button'} onClick={generateSitemap}>Generate Sitemap Manually</Button>
-                                    </div>
-                                </div>
-                            </CardContent>
-                        </Card>
-                        {/* Actions */}
-                        <div className="md:col-span-2 flex justify-end gap-4 mt-4">
-                            <Button type="submit" disabled={processing}>Save Settings</Button>
+        <AppLayout>
+            <Head title="Sitemap Settings" />
+            <SettingsLayout>
+                <div className="p-6 rounded shadow dark:bg-gray-900 dark:text-gray-100">
+                    <form className="">
+                        {/* Enable sitemap checkbox */}
+                        <div className="flex items-start gap-2">
+                            <input
+                                type="checkbox"
+                                id="enable_sitemap"
+                                checked={enabled}
+                                onChange={handleToggle}
+                                className="mt-1 cursor-pointer"
+                            />
+                            <div>
+                                <label htmlFor="enable_sitemap" className="font-semibold text-sm">
+                                    Enable sitemap?
+                                </label>
+                                <p className="text-gray-600 dark:text-gray-400 text-sm">
+                                    When enabled, a sitemap.xml file will be automatically generated and accessible at{' '}
+                                    <a
+                                        href={`${window.location.origin}/sitemap.xml`}
+                                        className="text-blue-600 dark:text-blue-400 underline"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        {`${window.location.origin}/sitemap.xml`}
+                                    </a>{' '}
+                                    to help search engines better index your site.
+                                </p>
+                            </div>
                         </div>
+
+                        {/* Conditionally visible section */}
+                        <div
+                            className={cn(
+                                'transition-all duration-500 overflow-hidden',
+                                enabled ? 'max-h-[1000px] mt-6' : 'max-h-0'
+                            )}
+                        >
+                            <div className="border rounded p-4 bg-gray-50 dark:bg-gray-800">
+                                {/* Description */}
+                                <div className="flex items-center justify-between mb-4">
+                                    <div>
+                                        <h2 className="font-semibold">How Sitemap Works</h2>
+                                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                                            Your sitemap is automatically generated and updated whenever content changes.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Sitemap details */}
+                                <div className="flex flex-col sm:flex-row gap-4 mb-4">
+                                    <div className="bg-white dark:bg-gray-900 border rounded p-4 flex-1">
+                                        <h3 className="text-sm font-medium mb-2">Sitemap URL</h3>
+                                        <a
+                                            href={`${window.location.origin}/sitemap.xml`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-600 dark:text-blue-400 underline"
+                                        >
+                                            View Sitemap
+                                        </a>
+                                    </div>
+                                    <div className="bg-white dark:bg-gray-900 border rounded p-4 flex-1">
+                                        <h3 className="text-sm font-medium mb-2">Automatic Generation</h3>
+                                        <p className="text-sm text-gray-600 dark:text-gray-400">Updates automatically when content changes</p>
+                                    </div>
+                                </div>
+
+                                <div className="text-green-600 dark:text-green-400 text-sm mb-4">
+                                    ✅ The sitemap updates automatically whenever you create, edit, or delete content.
+                                </div>
+
+                                {/* Items per page */}
+                                <div className="mb-4">
+                                    <label className="block text-sm font-medium">Sitemap items per page</label>
+                                    <Input
+                                        type="number"
+                                        value={data.sitemap_items_per_page}
+                                        onChange={e => setData('sitemap_items_per_page', Number(e.target.value))}
+                                    />
+                                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                        Larger values may improve performance but may cause issues for very large sites.
+                                    </p>
+                                </div>
+
+                                {/* Enable IndexNow checkbox */}
+                                <div className="flex items-start gap-2">
+                                    <input
+                                        type="checkbox"
+                                        id="enable_index_now"
+                                        checked={indexNowEnabled}
+                                        onChange={(e) => setIndexNowEnabled(e.target.checked)}
+                                        className="mt-1"
+                                    />
+                                    <label htmlFor="enable_index_now" className="text-sm">
+                                        Enable IndexNow? <br />
+                                        <span className="text-xs text-gray-500 dark:text-gray-400">
+                                            Automatically notify search engines when your content is updated using IndexNow.
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Save button */}
+                        <Button className="mt-6" onClick={() => alert('Saved!')}>
+                            <SaveIcon/> Save settings
+                        </Button>
                     </form>
-                </SettingsLayout>
-            </AppLayout>
-        </>
+                </div>
+            </SettingsLayout>
+        </AppLayout>
     );
 };
 
-export default Sitemap;
+export default SitemapSettings;
