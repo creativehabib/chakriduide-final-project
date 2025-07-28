@@ -13,6 +13,7 @@ import {
     CarouselPrevious,
 } from '@/components/ui/carousel';
 import MainNav from '@/pages/frontend/layouts/MainNav';
+import { formatToBengaliDate } from '@/lib/dateFormatter';
 
 interface RelatedBlogsProps {
     data: BlogType[];
@@ -53,7 +54,7 @@ const Single = () => {
                     <h1 className="font-bold text-3xl mb-4 text-gray-900 dark:text-gray-200">{blog.name}</h1>
 
                     <div className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-                        <span>লেখক: {blog.user?.name || 'অজানা'}</span> | <span>প্রকাশিত: {new Date(blog.created_at).toLocaleDateString('bn-BD')}</span> {blog.category && <span> | বিভাগ: {blog.category.name}</span>}
+                        <span>লেখক: {blog.user?.name || 'অজানা'}</span> | <span>প্রকাশিত: {formatToBengaliDate(blog.created_at)}</span> {blog.category && <span> | বিভাগ: {blog.category.name}</span>}
                     </div>
 
                     <div className="prose prose-sm sm:prose lg:prose-lg dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: blog.content }} />
@@ -93,7 +94,7 @@ const Single = () => {
                                                         <h4 className="font-medium text-gray-900 dark:text-yellow-300 hover:underline line-clamp-2 mb-1">{post.name}</h4>
                                                         <div className="mt-auto text-xs text-gray-600 dark:text-gray-300 flex justify-between">
                                                             <span>{post.user?.name || 'অজানা'}</span>
-                                                            <span>{new Date(post.created_at).toLocaleDateString('bn-BD')}</span>
+                                                            <span>{formatToBengaliDate(post.created_at)}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -139,7 +140,7 @@ const Single = () => {
                                     <h4 className="font-medium text-gray-900 dark:text-yellow-300 hover:underline line-clamp-2">
                                         {post.name}
                                     </h4>
-                                    <span className="text-xs text-gray-600 dark:text-gray-300">{new Date(post.created_at).toLocaleDateString('bn-BD')}</span>
+                                    <span className="text-xs text-gray-600 dark:text-gray-300">{formatToBengaliDate(post.created_at)}</span>
                                 </div>
                             </Link>
                         ))}

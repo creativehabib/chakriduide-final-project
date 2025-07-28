@@ -1,13 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Head, useForm } from '@inertiajs/react';
+import React, { useEffect, useState } from 'react';
+import { Head, useForm, usePage } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 import { SaveIcon } from 'lucide-react';
+import { FlashProps } from '@/types/globals';
+import toast from 'react-hot-toast';
 
 const SitemapSettings = ({ settings }: any) => {
     const { data, setData, post, processing } = useForm({
@@ -18,18 +20,26 @@ const SitemapSettings = ({ settings }: any) => {
 
     const [enabled, setEnabled] = useState(settings.enable_sitemap);
     const [indexNowEnabled, setIndexNowEnabled] = useState(settings.enable_indexNow);
+    const { flash } = usePage<{ flash: FlashProps }>().props;
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        toast.success('Submit successfully!')
+    }
 
     const handleToggle = () => {
         const newState = !enabled;
         setEnabled(newState);
     };
-
+    useEffect(() => {
+        if (flash?.success) toast.success(flash.success);
+        if (flash?.error) toast.error(flash.error);
+    }, [flash]);
     return (
         <AppLayout>
             <Head title="Sitemap Settings" />
             <SettingsLayout>
                 <div className="p-6 rounded shadow dark:bg-gray-900 dark:text-gray-100">
-                    <form className="">
+                    <form className="" onSubmit={handleSubmit}>
                         {/* Enable sitemap checkbox */}
                         <div className="flex items-start gap-2">
                             <input
@@ -132,7 +142,7 @@ const SitemapSettings = ({ settings }: any) => {
                         </div>
 
                         {/* Save button */}
-                        <Button className="mt-6" onClick={() => alert('Saved!')}>
+                        <Button className="mt-6">
                             <SaveIcon/> Save settings
                         </Button>
                     </form>
