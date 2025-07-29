@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useEffect, useState } from 'react';
 import { Head, useForm, usePage } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
@@ -10,6 +8,11 @@ import { Input } from '@/components/ui/input';
 import { SaveIcon } from 'lucide-react';
 import { FlashProps } from '@/types/globals';
 import toast from 'react-hot-toast';
+import type { BreadcrumbItem } from '@/types';
+
+const breadcrumbs: BreadcrumbItem[] = [
+    { title: 'Robots TXT Edit', href: '/robots-txt' },
+];
 
 const SitemapSettings = ({ settings }: any) => {
     const { data, setData, post, processing } = useForm({
@@ -42,7 +45,7 @@ const SitemapSettings = ({ settings }: any) => {
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
     return (
-        <AppLayout>
+        <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Sitemap Settings" />
             <SettingsLayout>
                 <div className="p-6 rounded shadow dark:bg-gray-900 dark:text-gray-100">
