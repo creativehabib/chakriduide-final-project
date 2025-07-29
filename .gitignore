@@ -2,8 +2,8 @@
 /bootstrap/ssr
 /node_modules
 #/public/build
-public/sitemap.xml
-public/robots.txt
+/public/sitemap.xml
+/public/robots.txt
 /public/hot
 /public/storage
 /storage/*.key

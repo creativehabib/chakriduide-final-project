@@ -11,7 +11,7 @@ import toast from 'react-hot-toast';
 import type { BreadcrumbItem } from '@/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Robots TXT Edit', href: '/robots-txt' },
+    { title: 'Sitemap Settings', href: '/sitemap' },
 ];
 
 const SitemapSettings = ({ settings }: any) => {

@@ -1,4 +1,4 @@
-import { useForm, usePage } from '@inertiajs/react';
+import { Head, useForm, usePage } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
@@ -6,6 +6,10 @@ import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import toast from 'react-hot-toast';
 import { useEffect } from 'react';
+import type { BreadcrumbItem } from '@/types';
+const breadcrumbs: BreadcrumbItem[] = [
+    { title: 'Robots TXT Edit', href: '/robots-txt' },
+];
 
 interface RobotsProps {
     robots_txt: string;
@@ -45,7 +49,8 @@ export default function RobotsTXTSettings({ robots_txt, robots_file_url }: Robot
     }, [flash]);
 
     return (
-        <AppLayout>
+        <AppLayout breadcrumbs={breadcrumbs}>
+            <Head title={'Robots TXT Edit'}/>
             <SettingsLayout>
                 <div className="max-w-4xl p-6 space-y-6 shadow rounded-md bg-white">
                     <h1 className="text-xl font-bold">Robots.txt Content</h1>
