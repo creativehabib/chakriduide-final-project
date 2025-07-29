@@ -37,13 +37,9 @@ export default function Edit({ settings }: any) {
         cookie_consent_text: settings.cookie_consent_text || '',
         allow_registration: String(settings.allow_registration) === '1',
         allow_indexing: String(settings.allow_indexing) === '1',
-        robots_txt: settings.robots_txt || '',
         sitemap_include_posts: String(settings.sitemap_include_posts) === '1',
         sitemap_include_pages: String(settings.sitemap_include_pages) === '1',
-        sitemap_include_categories: String(settings.sitemap_include_categories) === '1',
-        enable_sitemap: String(settings.enable_sitemap) === '1',
-        enable_indexNow: String(settings.enable_indexNow) === '1',
-        sitemap_items_per_page: settings.sitemap_items_per_page || ''
+        sitemap_include_categories: String(settings.sitemap_include_categories) === '1'
     });
 
     const { flash } = usePage<{ flash: FlashProps }>().props;
@@ -200,10 +196,6 @@ export default function Edit({ settings }: any) {
                                 </div>
                             </div>
                             <div className="space-y-1">
-                                <label className="text-sm font-medium">Custom robots.txt</label>
-                                <Textarea value={data.robots_txt} onChange={e => setData('robots_txt', e.target.value)} rows={6} />
-                            </div>
-                            <div className="space-y-1">
                                 <h2 className="text-lg font-semibold">Sitemap Settings</h2>
                                 <div className="flex items-center justify-between">
                                     <span>Include Posts</span>
@@ -216,25 +208,6 @@ export default function Edit({ settings }: any) {
                                 <div className="flex items-center justify-between">
                                     <span>Include Categories</span>
                                     <Switch checked={data.sitemap_include_categories} onCheckedChange={value => setData('sitemap_include_categories', value)} />
-                                </div>
-                            </div>
-
-                            <div className="space-y-4">
-                                <h2 className="text-lg font-semibold">Sitemap Settings</h2>
-
-                                <div className="flex items-center justify-between">
-                                    <span>Enable Sitemap?</span>
-                                    <Switch checked={data.enable_sitemap} onCheckedChange={val => setData('enable_sitemap', val)} />
-                                </div>
-
-                                <div className="flex items-center justify-between">
-                                    <span>Enable IndexNow?</span>
-                                    <Switch checked={data.enable_indexNow} onCheckedChange={val => setData('enable_indexNow', val)} />
-                                </div>
-
-                                <div>
-                                    <label className="text-sm font-medium">Sitemap items per page</label>
-                                    <Input type="number" value={data.sitemap_items_per_page} onChange={e => setData('sitemap_items_per_page', Number(e.target.value))} />
                                 </div>
                             </div>
 

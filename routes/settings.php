@@ -28,4 +28,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get('settings/sitemap', [SettingController::class, 'sitemap'])->name('sitemap');
 
+
+    Route::post('/admin/settings/generate-sitemap', [SettingController::class, 'generateSitemap'])
+        ->name('admin.settings.generate-sitemap')
+        ->middleware(['web']);
+
+    Route::post('settings/sitemap', [SettingController::class, 'sitemapUpdate'])->name('settings.sitemap.update');
+    Route::get('settings/robots-txt', [SettingController::class, 'robotsTxt'])->name('robots.txt.edit');
+    Route::post('robots-txt/update', [SettingController::class, 'robotsTxtUpdate'])->name('robots.txt.update');
+
 });

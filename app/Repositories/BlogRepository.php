@@ -8,6 +8,7 @@ class BlogRepository
     {
         return Blog::with(['category', 'media', 'metas', 'user'])
             ->filter($filters)
+            ->where('status', 'published')
             ->latest()
             ->paginate($perPage)
             ->withQueryString();
@@ -16,6 +17,7 @@ class BlogRepository
     {
         return Blog::with(['category', 'media', 'metas', 'user'])
             ->filter($filters)
+            ->where('status', 'published')
             ->latest()
             ->get();
     }

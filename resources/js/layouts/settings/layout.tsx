@@ -31,6 +31,11 @@ const sidebarNavItems: NavItem[] = [
         title: 'Sitemap',
         href: '/settings/sitemap',
         icon: null,
+    },
+    {
+        title: 'Robots TXT Editor',
+        href: '/settings/robots-txt',
+        icon: null,
     }
 ];
 

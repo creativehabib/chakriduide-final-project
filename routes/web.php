@@ -37,13 +37,6 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 Route::get('/sitemap.xml', [SettingController::class, 'index']);
 
 
-// routes/web.php
-Route::post('/admin/settings/generate-sitemap', [SettingController::class, 'generateSitemap'])
-    ->name('admin.settings.generate-sitemap')
-    ->middleware(['web']);
-
-
-
 require __DIR__.'/install.php';
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

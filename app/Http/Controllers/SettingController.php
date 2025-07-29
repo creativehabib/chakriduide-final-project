@@ -3,20 +3,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Setting;
-use http\Env\Response;
-use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Cache;
-use Spatie\Sitemap\Sitemap;
-use Spatie\Sitemap\SitemapGenerator;
-use Spatie\Sitemap\Tags\Url;
 
 class SettingController extends Controller
 {
@@ -66,10 +60,7 @@ class SettingController extends Controller
             'sitemap_include_categories' => 'nullable|boolean',
             'sitemap_include_pages' => 'nullable|boolean',
 
-            'robots_txt' => 'nullable|string|max:5000',
-            'enable_sitemap' => 'nullable|boolean',
-            'enable_indexNow' => 'nullable|boolean',
-            'sitemap_items_per_page' => 'nullable|integer',
+            'robots_txt' => 'nullable|string|max:5000'
         ]);
 
         foreach ($request->except(['_token', '_method']) as $key => $value) {
@@ -135,5 +126,61 @@ class SettingController extends Controller
         return Inertia::render('admin/settings/sitemap',[
             'settings' => $settings,
         ]);
+    }
+
+    public function sitemapUpdate(Request $request)
+    {
+        $request->validate([
+            'enable_sitemap' => 'nullable|boolean',
+            'enable_indexNow' => 'nullable|boolean',
+            'sitemap_items_per_page' => 'nullable|integer',
+        ]);
+        foreach ($request->except(['_token', '_method']) as $key => $value) {
+            Setting::set($key, $value);
+        }
+        return back()->with('success', 'Sitemap updated successfully!');
+    }
+
+    public function robotsTxt(){
+        return inertia('admin/settings/robots', [
+            'robots_txt' => Setting::get('robots_txt') ?? "User-agent: *\nDisallow:",
+            'robots_file_url' => url('robots.txt'),
+        ]);
+    }
+
+    public function robotsTxtUpdate(Request $request)
+    {
+        $request->validate([
+            'robots_txt' => 'nullable|string|max:5000',
+            'robots_file' => 'nullable|file|mimes:txt|max:1024',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            // 1️⃣ Determine final content
+            if ($request->hasFile('robots_file')) {
+                $content = file_get_contents($request->file('robots_file')->getRealPath());
+            } else {
+                $content = $request->filled('robots_txt')
+                    ? $request->robots_txt
+                    : "User-agent: *\nDisallow:";
+            }
+
+            // 2️⃣ Save to DB
+            Setting::set('robots_txt', $content);
+
+            // 3️⃣ Save to public/robots.txt
+            $result = File::put(public_path('robots.txt'), $content);
+
+            if ($result === false) {
+                throw new \Exception('Failed to write robots.txt file');
+            }
+
+            DB::commit();
+            return back()->with('success', 'Robots.txt updated successfully!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Update failed: ' . $e->getMessage());
+        }
     }
 }

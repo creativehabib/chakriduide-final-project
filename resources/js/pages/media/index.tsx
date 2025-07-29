@@ -80,7 +80,7 @@ const MediaLibrary = () => {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Media Library" />
             <div className="py-6">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="w-full mx-auto sm:px-6 lg:px-8">
                     <div className="border overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="flex justify-between items-center border-b p-4">
                             <h1 className="text-2xl font-bold">Media Library ({ count })</h1>

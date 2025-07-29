@@ -19,17 +19,24 @@ const SitemapSettings = ({ settings }: any) => {
     });
 
     const [enabled, setEnabled] = useState(settings.enable_sitemap);
-    const [indexNowEnabled, setIndexNowEnabled] = useState(settings.enable_indexNow);
+    const [indexNowEnabled, setIndexNowEnabled] = useState(false);
     const { flash } = usePage<{ flash: FlashProps }>().props;
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        toast.success('Submit successfully!')
+        post(route('settings.sitemap.update'),  { preserveScroll: true });
     }
 
     const handleToggle = () => {
         const newState = !enabled;
+        setData('enable_sitemap', newState);
         setEnabled(newState);
     };
+
+    const handleEnableIndexNow = () => {
+        const newState = !indexNowEnabled;
+        setData('enable_indexNow', newState)
+        setIndexNowEnabled(newState)
+    }
     useEffect(() => {
         if (flash?.success) toast.success(flash.success);
         if (flash?.error) toast.error(flash.error);
@@ -128,7 +135,7 @@ const SitemapSettings = ({ settings }: any) => {
                                         type="checkbox"
                                         id="enable_index_now"
                                         checked={indexNowEnabled}
-                                        onChange={(e) => setIndexNowEnabled(e.target.checked)}
+                                        onChange={handleEnableIndexNow}
                                         className="mt-1"
                                     />
                                     <label htmlFor="enable_index_now" className="text-sm">
