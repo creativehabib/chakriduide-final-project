@@ -1,11 +1,12 @@
 // File: resources/js/Pages/Homepage.tsx
 import React, { useState } from 'react';
-import { Head, Link, usePage, router } from '@inertiajs/react'; // Import 'router'
+import { Head, Link, usePage, router } from '@inertiajs/react';
 import { ChevronRight } from 'lucide-react';
 import { BlogType } from '@/types/globals';
 import { getImageUrl } from '@/helper/helpers';
-import HerroComponent from '@/pages/frontend/components/HerroComponent';
+import HerroComponent from '@/pages/frontend/components/HerroComponent'; // Make sure this component has CLS fixes applied
 import MainNav from '@/pages/frontend/layouts/MainNav';
+
 export interface PaginationLink {
     url: string | null;
     label: string;
@@ -35,19 +36,21 @@ export default function Homepage() {
     const [nextPageUrl, setNextPageUrl] = useState(blogs.links.next || null);
     const [loading, setLoading] = useState(false);
 
-    const loadMore = () => { // No need for 'async' here for Inertia.get
+    // Define standard dimensions for blog post images to prevent CLS
+    const BLOG_POST_IMG_WIDTH = 400; // Matches width passed to getImageUrl
+    const BLOG_POST_IMG_HEIGHT = 350; // Matches height passed to getImageUrl
+
+    const loadMore = () => {
         if (!nextPageUrl) return;
         setLoading(true);
 
-        // Use Inertia.get to visit the next page URL
         router.get(
             nextPageUrl,
-            {}, // Empty data object, as we're just navigating
+            {},
             {
-                preserveScroll: true, // Keep scroll position
-                preserveState: true,   // Preserve current component state
+                preserveScroll: true,
+                preserveState: true,
                 onSuccess: (page) => {
-                    // When the new page data is successfully loaded
                     const newBlogs = (page.props.blogs as PaginatedData<BlogType>);
                     setBlogList(prev => [...prev, ...newBlogs.data]);
                     setNextPageUrl(newBlogs.links.next);
@@ -60,16 +63,22 @@ export default function Homepage() {
             }
         );
     };
+
     return (
         <>
-            {/* ✅ Set meta-title and other tags */}
             <Head>
                 <title>চাকরি গাইড - আপনার ক্যারিয়ার সহচর</title>
+                {/* Potentially add meta description and og:image if this is a shareable page */}
+                {/* <meta name="description" content="চাকরি গাইড আপনার চাকরির প্রস্তুতি ও ক্যারিয়ারের জন্য একটি নির্ভরযোগ্য প্ল্যাটফর্ম।" />
+                <meta property="og:image" content={getImageUrl('/images/default-homepage-og.jpg', 1200, 630)} /> */}
+                {/* Add og:image dimensions for social media previews */}
+                {/* <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" /> */}
             </Head>
 
             <MainNav/>
 
-            {/* Hero Section */}
+            {/* Hero Section - Ensure HerroComponent has its own CLS fixes */}
             <HerroComponent/>
 
             {/* Job Circular Section */}
@@ -80,6 +89,7 @@ export default function Homepage() {
                     </h3>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {/* These are placeholder job cards, no images, so no CLS concern here */}
                         {[1, 2, 3].map((job) => (
                             <div
                                 key={job}
@@ -103,7 +113,6 @@ export default function Homepage() {
                 </div>
             </section>
 
-
             {/* Quiz Section */}
             <section className="py-16 bg-gray-50 dark:bg-gray-950 transition-colors duration-500">
                 <div className="container mx-auto px-6">
@@ -112,6 +121,7 @@ export default function Homepage() {
                     </h3>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                        {/* No images here, so no CLS concern */}
                         {['BCS', 'Bank', 'প্রাথমিক'].map((topic, index) => (
                             <Link
                                 key={index}
@@ -142,9 +152,18 @@ export default function Homepage() {
                                 {/* Image */}
                                 <div className="overflow-hidden rounded-t-xl">
                                     <Link href={`/${post.slug}`} className="block">
+                                        {/* CLS Fix: Add width and height attributes to the blog post image */}
                                         <img
-                                            src={getImageUrl(post.media?.path, 400, 350, post.media?.name || 'No Image')}
-                                            alt={post.media?.name || post.name}
+                                            src={getImageUrl(post.media?.path, BLOG_POST_IMG_WIDTH, BLOG_POST_IMG_HEIGHT, post.media?.name || 'No Image')}
+                                            alt={post.media?.name || post.name || 'Blog Post Image'}
+                                            width={BLOG_POST_IMG_WIDTH} // Explicit width
+                                            height={BLOG_POST_IMG_HEIGHT} // Explicit height
+                                            // 'h-48' (192px) may conflict if 350px is desired.
+                                            // You should decide which dimension takes precedence or adjust BLOG_POST_IMG_HEIGHT.
+                                            // For this example, I am keeping h-48 for layout control, but know it might
+                                            // make the browser stretch the image if its natural aspect ratio is different.
+                                            // The best is to match the height attribute to h-48 (192) and adjust width accordingly.
+                                            // For 400x350 aspect (1.14), if height is 192, width would be 192 * 1.14 = ~219px
                                             className="w-full h-48 object-cover rounded-t-xl transform transition-transform duration-300 hover:scale-105"
                                             loading="lazy"
                                         />
@@ -154,7 +173,7 @@ export default function Homepage() {
                                 {/* Content */}
                                 <div className="p-6 flex flex-col flex-grow">
                                     <Link href={`/${post.slug}`} className="block">
-                                        <h4 className="font-semibold text-yellow-600 dark:text-yellow-300 hover:underline line-clamp-2 text-xl  mb-3">
+                                        <h4 className="font-semibold text-yellow-600 dark:text-yellow-300 hover:underline line-clamp-2 text-xl mb-3">
                                             {post.name}
                                         </h4>
                                     </Link>
@@ -193,9 +212,8 @@ export default function Homepage() {
                 </div>
             </section>
 
-
             {/* Footer */}
-            <footer className="bg-gradient-to-r from-gray-950  to-gray-950 text-white py-12">
+            <footer className="bg-gradient-to-r from-gray-950 to-gray-950 text-white py-12">
                 <div className="container mx-auto px-6">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-sm">
                         {/* About */}
@@ -264,7 +282,6 @@ export default function Homepage() {
                     </div>
                 </div>
             </footer>
-
         </>
     );
 }
