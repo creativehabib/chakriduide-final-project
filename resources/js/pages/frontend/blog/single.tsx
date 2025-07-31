@@ -74,7 +74,7 @@ const Single = () => {
             {/* Main Content */}
             <div className="container mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 px-4 sm:px-6 lg:px-6 py-8">
                 {/* Main Blog */}
-                <div className="content lg:col-span-8 bg-white dark:bg-gray-900">
+                <div className="content lg:col-span-8 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4 rounded shadow-md">
                     {blog.media && (
                         // CLS Fix 1: Add width and height attributes to the main blog image
                         <img
