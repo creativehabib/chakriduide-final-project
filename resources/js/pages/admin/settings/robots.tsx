@@ -52,30 +52,31 @@ export default function RobotsTXTSettings({ robots_txt, robots_file_url }: Robot
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={'Robots TXT Edit'}/>
             <SettingsLayout>
-                <div className="max-w-4xl p-6 space-y-6 shadow rounded-md bg-white">
-                    <h1 className="text-xl font-bold">Robots.txt Content</h1>
+                <div className="max-w-4xl p-6 space-y-6 shadow-md border border-gray-200 dark:border-gray-800 rounded-lg bg-gray-50 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+                    <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Robots.txt Content</h1>
 
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                    <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Textarea */}
-                        <Textarea
-                            rows={10}
-                            value={form.data.robots_txt}
-                            onChange={(e) => form.setData('robots_txt', e.target.value)}
-                            className="font-mono"
-                        />
+                        <div>
+                            <Textarea
+                                rows={10}
+                                value={form.data.robots_txt}
+                                onChange={(e) => form.setData('robots_txt', e.target.value)}
+                                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 dark:bg-gray-950 dark:border-gray-800 dark:text-gray-100 font-mono w-full min-h-[200px]"
+                            />
+                            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+                                After saving, check your robots.txt here:{' '}
+                                <a href={robots_file_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 underline">
+                                    {robots_file_url}
+                                </a>
+                            </p>
+                        </div>
 
-                        <p className="text-sm text-gray-500">
-                            After saving, check your robots.txt here:{' '}
-                            <a href={robots_file_url} target="_blank" className="text-blue-600 underline">
-                                {robots_file_url}
-                            </a>
-                        </p>
-
-                        {/* File Upload */}
+                        {/* File Upload section */}
                         <div className="space-y-2">
-                            <label className="font-medium">Upload robots.txt file</label>
-                            <Input type="file" accept=".txt" onChange={handleFileChange} />
-                            <p className="text-sm text-gray-500">
+                            <label className="font-medium text-gray-900 dark:text-gray-100">Upload robots.txt file</label>
+                            <Input type="file" accept=".txt" onChange={handleFileChange} className={'cursor-pointer'}/>
+                            <p className="text-sm text-gray-500 dark:text-gray-400">
                                 Uploading a file will overwrite the text content above.
                             </p>
                         </div>

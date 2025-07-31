@@ -20,26 +20,12 @@ const SitemapSettings = ({ settings }: any) => {
         enable_indexNow: String(settings.enable_indexNow) === '1',
         sitemap_items_per_page: settings.sitemap_items_per_page || ''
     });
-
-    const [enabled, setEnabled] = useState(settings.enable_sitemap);
-    const [indexNowEnabled, setIndexNowEnabled] = useState(false);
     const { flash } = usePage<{ flash: FlashProps }>().props;
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(route('settings.sitemap.update'),  { preserveScroll: true });
+        post(route('settings.sitemap.update'),  {preserveScroll: true});
     }
 
-    const handleToggle = () => {
-        const newState = !enabled;
-        setData('enable_sitemap', newState);
-        setEnabled(newState);
-    };
-
-    const handleEnableIndexNow = () => {
-        const newState = !indexNowEnabled;
-        setData('enable_indexNow', newState)
-        setIndexNowEnabled(newState)
-    }
     useEffect(() => {
         if (flash?.success) toast.success(flash.success);
         if (flash?.error) toast.error(flash.error);
@@ -48,15 +34,15 @@ const SitemapSettings = ({ settings }: any) => {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Sitemap Settings" />
             <SettingsLayout>
-                <div className="p-6 rounded shadow dark:bg-gray-900 dark:text-gray-100">
+                <div className="p-6 rounded border shadow dark:bg-gray-900 dark:text-gray-100">
                     <form className="" onSubmit={handleSubmit}>
                         {/* Enable sitemap checkbox */}
                         <div className="flex items-start gap-2">
                             <input
                                 type="checkbox"
                                 id="enable_sitemap"
-                                checked={enabled}
-                                onChange={handleToggle}
+                                checked={data.enable_sitemap}
+                                onChange={(e) => setData('enable_sitemap', e.target.checked)}
                                 className="mt-1 cursor-pointer"
                             />
                             <div>
@@ -82,10 +68,10 @@ const SitemapSettings = ({ settings }: any) => {
                         <div
                             className={cn(
                                 'transition-all duration-500 overflow-hidden',
-                                enabled ? 'max-h-[1000px] mt-6' : 'max-h-0'
+                                data.enable_sitemap ? 'max-h-[1000px] mt-6' : 'max-h-0'
                             )}
                         >
-                            <div className="border rounded p-4 bg-gray-50 dark:bg-gray-800">
+                        <div className="border rounded p-4 bg-gray-50 dark:bg-gray-800">
                                 {/* Description */}
                                 <div className="flex items-center justify-between mb-4">
                                     <div>
@@ -137,8 +123,8 @@ const SitemapSettings = ({ settings }: any) => {
                                     <input
                                         type="checkbox"
                                         id="enable_index_now"
-                                        checked={indexNowEnabled}
-                                        onChange={handleEnableIndexNow}
+                                        checked={data.enable_indexNow}
+                                        onChange={(e) => setData('enable_indexNow', e.target.checked)}
                                         className="mt-1"
                                     />
                                     <label htmlFor="enable_index_now" className="text-sm">
