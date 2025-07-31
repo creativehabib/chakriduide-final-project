@@ -108,7 +108,7 @@ const HeroComponent = () => {
     return (
         <section
             ref={sectionRef}
-            className={`relative overflow-hidden bg-gradient-to-r from-blue-300 via-purple-200 to-pink-300 dark:from-slate-900 dark:via-gray-800 dark:to-slate-900 ${visible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'} py-8 transition-all duration-700 md:py-16`}
+            className={`relative overflow-hidden bg-gradient-to-r from-blue-300 via-purple-200 to-pink-300 dark:from-slate-900 dark:via-gray-800 dark:to-slate-900 ${visible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'} transition-all duration-700`}
         >
             <Snowfall />
 

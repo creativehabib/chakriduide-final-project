@@ -68,7 +68,7 @@ export default function Homepage() {
         <>
             <Head>
                 <title>চাকরি গাইড - আপনার ক্যারিয়ার সহচর</title>
-                {/* Potentially add meta description and og:image if this is a shareable page */}
+                {/* Potentially add meta-description and og:image if this is a shareable page */}
                 {/* <meta name="description" content="চাকরি গাইড আপনার চাকরির প্রস্তুতি ও ক্যারিয়ারের জন্য একটি নির্ভরযোগ্য প্ল্যাটফর্ম।" />
                 <meta property="og:image" content={getImageUrl('/images/default-homepage-og.jpg', 1200, 630)} /> */}
                 {/* Add og:image dimensions for social media previews */}
