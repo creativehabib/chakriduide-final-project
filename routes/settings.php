@@ -37,4 +37,10 @@ Route::middleware('auth')->group(function () {
     Route::get('settings/robots-txt', [SettingController::class, 'robotsTxt'])->name('robots.txt.edit');
     Route::post('robots-txt/update', [SettingController::class, 'robotsTxtUpdate'])->name('robots.txt.update');
 
+
+    Route::get('/settings/cronjob', function () {
+        return Inertia::render('admin/settings/CronJobSetup');
+    });
+
+
 });

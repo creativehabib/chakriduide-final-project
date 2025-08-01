@@ -166,8 +166,8 @@ export const sidebarData: SidebarData = {
                             icon: IconPalette,
                         },
                         {
-                            title: 'Notifications',
-                            url: '/settings/notifications',
+                            title: 'Cronjob',
+                            url: '/settings/cronjob',
                             icon: IconNotification,
                         },
                         {
