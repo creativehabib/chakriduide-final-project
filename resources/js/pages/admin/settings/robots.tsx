@@ -62,7 +62,7 @@ export default function RobotsTXTSettings({ robots_txt, robots_file_url }: Robot
                                 rows={10}
                                 value={form.data.robots_txt}
                                 onChange={(e) => form.setData('robots_txt', e.target.value)}
-                                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 dark:bg-gray-950 dark:border-gray-800 dark:text-gray-100 font-mono w-full min-h-[200px]"
+                                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-950 dark:border-gray-800 dark:text-gray-100 font-mono w-full min-h-[200px]"
                             />
                             <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
                                 After saving, check your robots.txt here:{' '}
