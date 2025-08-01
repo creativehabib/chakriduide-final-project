@@ -21,6 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Schedule::command('sitemap:generate')->everyTenMinutes();
+        Schedule::command('sitemap:generate')->everyMinute();
     }
 }
