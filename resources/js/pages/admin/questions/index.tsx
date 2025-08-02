@@ -120,14 +120,16 @@ export default function Index({
                                     </div>
                                 </div>
 
-                                {/* Test Yourself Options */}
+                                {/* Question Options */}
                                 <div className="p-4 bg-gray-50 rounded-md border border-gray-200 mb-4">
                                     <div className="grid grid-cols-2 gap-4">
                                         {question.options.map((option: any) => (
                                             <div key={option.id} className="flex items-center">
                                                 <input
                                                     type="checkbox"
-                                                    className="form-checkbox h-4 w-4 text-red-600 rounded-sm"
+                                                    checked={option.is_correct}
+                                                    readOnly
+                                                    className="form-checkbox h-4 w-4 text-green-600 rounded-sm"
                                                 />
                                                 <span
                                                     className={`ml-2 text-sm ${
