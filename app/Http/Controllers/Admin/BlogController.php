@@ -31,7 +31,7 @@ class BlogController extends Controller
     public function index(Request $request): Response
     {
         $filters = (array) $request->only('search');
-        $blog = $this->blogRepository->paginate($filters, 4);
+        $blog = $this->blogRepository->all($filters, 5);
         return Inertia::render('admin/blog/index', [
             'blogs' => BlogResource::collection($blog),
             'filters' => $filters,

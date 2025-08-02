@@ -75,6 +75,11 @@ export const sidebarData: SidebarData = {
                     ],
                 },
                 {
+                    title: 'MCQ Question',
+                    url: '/admin/questions',
+                    icon: LucideShieldQuestion
+                },
+                {
                     title: 'Quiz',
                     url: '/quiz',
                     icon: LucideShieldQuestion,

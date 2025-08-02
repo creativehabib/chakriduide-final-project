@@ -352,7 +352,7 @@ button:disabled, .tiptap-editor-toolbar button:disabled {
     @apply w-full border-collapse my-4 table-fixed;
 }
 .content th, .content td{
-    @apply border border-gray-300 dark:border-gray-600 align-middle text-center px-3 py-2;
+    @apply border border-gray-300 dark:border-gray-600 align-middle text-left px-3 py-2;
 }
 .content th{
     @apply font-bold bg-gray-100 dark:bg-gray-700;

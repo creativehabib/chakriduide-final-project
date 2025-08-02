@@ -13,13 +13,13 @@ class BlogRepository
             ->paginate($perPage)
             ->withQueryString();
     }
-    public function all(array $filters = [])
+    public function all(array $filters = [], int $perPage = 10)
     {
         return Blog::with(['category', 'media', 'metas', 'user'])
             ->filter($filters)
-            ->where('status', 'published')
             ->latest()
-            ->get();
+            ->paginate($perPage)
+            ->withQueryString();
     }
 
     /**

@@ -20,5 +20,16 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
+// routes/web.php
+
+use App\Http\Controllers\Admin\QuestionController;
+
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::get('/questions', [QuestionController::class, 'index'])->name('questions.index');
+    Route::get('/questions/create', [QuestionController::class, 'create'])->name('questions.create');
+    Route::post('/questions', [QuestionController::class, 'store'])->name('questions.store');
+});
+
+
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/{slug}', [FrontendController::class, 'singlePost'])->name('blog.show');
