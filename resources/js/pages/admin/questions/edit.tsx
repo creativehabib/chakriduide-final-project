@@ -2,12 +2,12 @@ import React from 'react';
 import AppLayout from '@/layouts/app-layout';
 import QuestionForm from '@/pages/admin/questions/question-form';
 
-export default function Create({ categories } : any) {
+export default function Edit({ categories, question } : any) {
     return (
         <AppLayout>
             <div className="container mx-auto p-4">
-                <h1 className="text-2xl font-bold mb-4">Create New Question</h1>
-                <QuestionForm categories={categories} />
+                <h1 className="text-2xl font-bold mb-4">Edit Question</h1>
+                <QuestionForm categories={categories} question={question} />
             </div>
         </AppLayout>
     );

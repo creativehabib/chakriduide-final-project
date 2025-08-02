@@ -1,5 +1,5 @@
 import {
-    IconBarrierBlock,
+    IconBarrierBlock, IconBookmarkQuestion,
     IconBrowserCheck,
     IconBug,
     IconError404, IconFileText, IconFolder,
@@ -18,7 +18,7 @@ import {
     IconUserOff,
     IconUsers
 } from '@tabler/icons-react';
-import { AudioWaveform, Command, GalleryVerticalEnd, Camera, LucideShieldQuestion } from 'lucide-react';
+import { AudioWaveform, Command, GalleryVerticalEnd, Camera, LucideShieldQuestion, Folder } from 'lucide-react';
 import { type SidebarData } from '../types'
 
 export const sidebarData: SidebarData = {
@@ -75,9 +75,20 @@ export const sidebarData: SidebarData = {
                     ],
                 },
                 {
-                    title: 'MCQ Question',
-                    url: '/admin/questions',
-                    icon: LucideShieldQuestion
+                    title: 'MCQ',
+                    icon: LucideShieldQuestion,
+                    items: [
+                        {
+                            title: 'All Questions',
+                            url: '/admin/questions',
+                            icon: IconBookmarkQuestion
+                        },
+                        {
+                            title: 'Q Category',
+                            url: 'admin/questions/category',
+                            icon: Folder
+                        }
+                    ]
                 },
                 {
                     title: 'Quiz',

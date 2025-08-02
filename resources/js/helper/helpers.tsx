@@ -56,6 +56,37 @@ export function getImageUrl(path?: string | null, width = 300, height = 200, tex
     return `${baseUrl}/storage/${path}`;
 }
 
+export function formatTimeAgo(data: any) : string{
+
+        if (!data) return '';
+
+        const now = new Date();
+        const date = new Date(data);
+        const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+
+        let interval = seconds / 31536000;
+        if (interval > 1) {
+            return `${Math.floor(interval)} বছর আগে`;
+        }
+        interval = seconds / 2592000;
+        if (interval > 1) {
+            return `${Math.floor(interval)} মাস আগে`;
+        }
+        interval = seconds / 86400;
+        if (interval > 1) {
+            return `${Math.floor(interval)} দিন আগে`;
+        }
+        interval = seconds / 3600;
+        if (interval > 1) {
+            return `${Math.floor(interval)} ঘন্টা আগে`;
+        }
+        interval = seconds / 60;
+        if (interval > 1) {
+            return `${Math.floor(interval)} মিনিট আগে`;
+        }
+        return `${Math.floor(seconds)} সেকেন্ড আগে`;
+}
+
 export function transformFormDataToUserData( user: UserType): UserFormData {
     return {
         id: user.id,

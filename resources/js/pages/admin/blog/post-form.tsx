@@ -85,7 +85,6 @@ export default function PostForm({ post, isEdit = false }: PostFormProps) {
             setData('media_id', media?.id ?? null);
         }
     };
-    // console.log('🚀 Post Data:', post);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={isEdit ? "Edit Post" : "Create Post"} />
