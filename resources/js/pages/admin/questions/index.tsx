@@ -127,13 +127,13 @@ export default function Index({
                                             <div key={option.id} className="flex items-center">
                                                 <input
                                                     type="checkbox"
-                                                    checked={Boolean(option.is_correct)}
+                                                    checked={!!option.is_correct}
                                                     readOnly
                                                     className="form-checkbox h-4 w-4 text-green-600 rounded-sm"
                                                 />
                                                 <span
                                                     className={`ml-2 text-sm ${
-                                                        Boolean(option.is_correct)
+                                                        !!option.is_correct
                                                             ? 'text-green-700 font-semibold'
                                                             : 'text-gray-700'
                                                     }`}
