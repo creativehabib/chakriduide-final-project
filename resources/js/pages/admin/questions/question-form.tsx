@@ -28,9 +28,10 @@ export default function QuestionForm({ categories, question }: QuestionFormProps
             { option_text: '', is_correct: false },
             { option_text: '', is_correct: false },
         ],
-        correct_option_index: question
-            ? question.options.findIndex((opt: any) => opt.is_correct)
-            : null,
+        correct_option_index:
+            question && question.options.findIndex((opt: any) => opt.is_correct) !== -1
+                ? question.options.findIndex((opt: any) => opt.is_correct)
+                : null,
     });
 
     // Form submit
@@ -123,7 +124,7 @@ export default function QuestionForm({ categories, question }: QuestionFormProps
                         <input
                             type="radio"
                             name="correct_option"
-                            checked={Number(data.correct_option_index) === index}
+                            checked={data.correct_option_index === index}
                             onChange={() => handleCorrectOptionChange(index)}
                             className="h-4 w-4 text-blue-600 focus:ring-blue-500"
                         />
