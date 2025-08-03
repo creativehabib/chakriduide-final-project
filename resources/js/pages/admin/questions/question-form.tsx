@@ -28,10 +28,10 @@ export default function QuestionForm({ categories, question }: QuestionFormProps
             { option_text: '', is_correct: false },
             { option_text: '', is_correct: false },
         ],
-        correct_option_index:
-            question && question.options.findIndex((opt: any) => opt.is_correct) !== -1
-                ? question.options.findIndex((opt: any) => opt.is_correct)
-                : null,
+        correct_option_index: question
+            && question.options.findIndex((opt: any) => opt.is_correct) !== -1
+            ? question.options.findIndex((opt: any) => opt.is_correct)
+            : null,
     });
 
     // Form submit
