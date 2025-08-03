@@ -14,27 +14,32 @@ import {
 
 interface QuestionFormProps {
     categories: any[];
-    question?: any; // Edit এর জন্য
+    question?: any;
 }
 
 export default function QuestionForm({ categories, question }: QuestionFormProps) {
+
+    // ✅ Server data normalize করা
+    const normalizedOptions = question?.options?.map((opt: any) => ({
+        ...opt,
+        is_correct: opt.is_correct === 1 || opt.is_correct === '1' || opt.is_correct === true,
+    })) || [
+        { option_text: '', is_correct: false },
+        { option_text: '', is_correct: false },
+        { option_text: '', is_correct: false },
+        { option_text: '', is_correct: false },
+    ];
+
+    const correctIndex = normalizedOptions.findIndex((opt: any) => opt.is_correct);
+
     const { data, setData, post, put, processing, errors } = useForm({
         category_id: question?.category_id ? String(question.category_id) : '',
         question_text: question?.question_text || '',
         description: question?.description || '',
-        options: question?.options || [
-            { option_text: '', is_correct: false },
-            { option_text: '', is_correct: false },
-            { option_text: '', is_correct: false },
-            { option_text: '', is_correct: false },
-        ],
-        correct_option_index: question
-            && question.options.findIndex((opt: any) => opt.is_correct) !== -1
-            ? question.options.findIndex((opt: any) => opt.is_correct)
-            : null,
+        options: normalizedOptions,
+        correct_option_index: correctIndex !== -1 ? correctIndex : null, // ✅ সবসময় number বা null
     });
 
-    // Form submit
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
         if (question) {
@@ -51,7 +56,7 @@ export default function QuestionForm({ categories, question }: QuestionFormProps
         setData('options', newOptions);
     };
 
-    // Correct Option Change + is_correct update
+    // Correct Option Change
     const handleCorrectOptionChange = (index: number): void => {
         const newOptions = data.options.map((option: any, i: number): any => ({
             ...option,
@@ -124,7 +129,7 @@ export default function QuestionForm({ categories, question }: QuestionFormProps
                         <input
                             type="radio"
                             name="correct_option"
-                            checked={data.correct_option_index === index}
+                            checked={data.correct_option_index === index} // ✅ এখন কাজ করবে
                             onChange={() => handleCorrectOptionChange(index)}
                             className="h-4 w-4 text-blue-600 focus:ring-blue-500"
                         />
