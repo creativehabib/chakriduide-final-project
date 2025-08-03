@@ -123,7 +123,7 @@ export default function QuestionForm({ categories, question }: QuestionFormProps
                         <input
                             type="radio"
                             name="correct_option"
-                            checked={data.correct_option_index === index}
+                            checked={Number(data.correct_option_index) === index}
                             onChange={() => handleCorrectOptionChange(index)}
                             className="h-4 w-4 text-blue-600 focus:ring-blue-500"
                         />
