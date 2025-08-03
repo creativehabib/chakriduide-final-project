@@ -133,7 +133,7 @@ export default function Index({
                                                 />
                                                 <span
                                                     className={`ml-2 text-sm ${
-                                                        option.is_correct
+                                                        Number(option.is_correct)
                                                             ? 'text-green-700 font-semibold'
                                                             : 'text-gray-700'
                                                     }`}
