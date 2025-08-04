@@ -26,8 +26,8 @@ const MainNav = () => {
 
                     {/* Nav Menu (Desktop) */}
                     <nav className="hidden md:flex gap-8 items-center text-sm font-semibold">
-                        {['/jobs', '/quiz', '/guides'].map((path, idx) => {
-                            const labels = ['চাকরির খবর', 'MCQ কুইজ', 'প্রস্তুতি গাইড'];
+                        {['/jobs','/q_category', '/quiz', '/guides'].map((path, idx) => {
+                            const labels = ['চাকরির খবর', 'অনুশীলন', 'MCQ কুইজ', 'প্রস্তুতি গাইড'];
                             return (
                                 <Link
                                     key={path}

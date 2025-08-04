@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\MediaController;
 use Illuminate\Support\Facades\Cache;
@@ -35,7 +36,9 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
 // sitemap route
 Route::get('/sitemap.xml', [SettingController::class, 'index']);
-
+// Question Category
+Route::get('/q_category', [FrontendController::class, 'qCategory'])->name('q.category');
+Route::get('/questions/{slug}', [FrontendController::class, 'showCategoryQuestions'])->name('category.questions');
 
 require __DIR__.'/install.php';
 require __DIR__.'/settings.php';

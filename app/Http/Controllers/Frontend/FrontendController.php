@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\BlogResource;
 use App\Http\Resources\MetaResource;
 use App\Models\Blog;
+use App\Models\QCategory;
 use App\Repositories\BlogRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -64,5 +65,30 @@ class FrontendController extends Controller
         $blogs = $this->blogRepository->paginate($filters, 6);
 
         return response()->json($blogs);
+    }
+
+    // Question Category
+    public function QCategory()
+    {
+        $categories = QCategory::withCount('questions')->get();
+
+        return Inertia::render('frontend/question_category', [
+            'categories' => $categories
+        ]);
+    }
+
+    // নির্দিষ্ট ক্যাটাগরির প্রশ্ন দেখানোর জন্য নতুন মেথড
+    public function showCategoryQuestions($slug)
+    {
+        $category = QCategory::where('slug', $slug)->firstOrFail();
+
+        // ক্যাটাগরির সাথে সম্পর্কিত প্রশ্ন এবং প্রশ্নকারীর তথ্য লোড করা
+        // 'options' রিলেশনশিপ সহ প্রশ্নগুলো লোড করা হয়েছে
+        $questions = $category->questions()->with(['user', 'options'])->paginate(10);
+
+        return Inertia::render('frontend/category_questions', [
+            'category' => $category,
+            'questions' => $questions,
+        ]);
     }
 }

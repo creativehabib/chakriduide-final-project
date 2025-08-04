@@ -10,7 +10,12 @@ class Question extends Model
 
     public function category()
     {
-        return $this->belongsTo(QCategory::class, 'category_id');
+        return $this->belongsTo(QCategory::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function options()
