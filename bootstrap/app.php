@@ -23,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
             CheckInstallation::class,
+            \App\Http\Middleware\TrackUserVisit::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

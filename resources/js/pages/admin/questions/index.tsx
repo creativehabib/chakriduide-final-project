@@ -125,21 +125,25 @@ export default function Index({
                                     <div className="grid grid-cols-2 gap-4">
                                         {question.options.map((option: any) => (
                                             <div key={option.id} className="flex items-center">
-                                                <input
-                                                    type="checkbox"
-                                                    checked={!!Number(option.is_correct)}
-                                                    readOnly
-                                                    className="form-checkbox h-4 w-4 text-green-600 rounded-sm"
-                                                />
-                                                <span
-                                                    className={`ml-2 text-sm ${
-                                                        !!Number(option.is_correct)
-                                                            ? 'text-green-700 font-semibold'
-                                                            : 'text-gray-700'
-                                                    }`}
+                                                <label key={option.id}
+                                                    htmlFor={`option-${option.id}`}
+                                                    className="flex items-center cursor-pointer select-none"
                                                 >
-                                                    {option.option_text}
-                                                </span>
+                                                    <input
+                                                        type="checkbox"
+                                                        id={`option-${option.id}`}
+                                                        checked={!!Number(option.is_correct)}
+                                                        className="form-checkbox h-4 w-4 text-green-600 rounded-sm"
+                                                    />
+                                                    <span className={`ml-2 text-sm ${
+                                                                !!Number(option.is_correct)
+                                                                    ? 'text-green-700 font-semibold'
+                                                                    : 'text-gray-700'
+                                                            }`}
+                                                        >
+                                                        {option.option_text}
+                                                    </span>
+                                                </label>
                                             </div>
                                         ))}
                                     </div>

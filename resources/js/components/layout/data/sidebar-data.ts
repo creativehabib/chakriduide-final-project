@@ -187,8 +187,8 @@ export const sidebarData: SidebarData = {
                             icon: IconNotification,
                         },
                         {
-                            title: 'Display',
-                            url: '/settings/display',
+                            title: 'Visitor Info',
+                            url: '/settings/visits',
                             icon: IconBrowserCheck,
                         },
                     ],

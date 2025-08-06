@@ -43,4 +43,5 @@ Route::middleware('auth')->group(function () {
     });
 
 
+    Route::get('/settings/visits', [SettingController::class, 'userVisitInfo'])->name('visits.info');
 });

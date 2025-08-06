@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Setting;
+use App\Models\UserVisit;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -182,5 +183,16 @@ class SettingController extends Controller
             DB::rollBack();
             return back()->with('error', 'Update failed: ' . $e->getMessage());
         }
+    }
+
+    // User visit info
+    public function userVisitInfo(Request $request)
+    {
+        // UserVisit ডেটা পেজিনেট করে আনা হচ্ছে
+        $visits = UserVisit::orderBy('created_at', 'desc')->paginate(15);
+
+        return Inertia::render('admin/settings/visitors-info', [
+            'visits' => $visits,
+        ]);
     }
 }
