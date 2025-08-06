@@ -97,7 +97,7 @@ export default function CategoryQuestions() {
                                         <div
                                             key={option.id}
                                             className={`flex items-center gap-1 rounded p-2 transition ${
-                                                option.is_correct
+                                                !!Number(option.is_correct)
                                                     ? "bg-green-100 text-green-900 font-medium"
                                                     : "bg-gray-50 hover:bg-gray-100 text-gray-700"
                                             }`}
