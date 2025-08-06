@@ -76,7 +76,7 @@ export default function CategoryQuestions() {
 
                     <div className="space-y-4">
                         {questions.data.map((q, qIndex) => (
-                            <div key={q.id} className="border rounded-lg p-3 mb-3 bg-white shadow-sm">
+                            <div key={q.id} className="border rounded-lg p-3 mb-3 bg-white shadow-sm border-gray-200">
                                 {/* প্রশ্ন */}
 
                                 {/* Header section with question number and timestamps */}
